@@ -124,6 +124,16 @@
             <artifactId>mosaic-sumo</artifactId>
             <version>${mosaic.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.mosaic</groupId>
+            <artifactId>mosaic-carla-ambassador</artifactId>
+            <version>${mosaic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.mosaic</groupId>
+            <artifactId>mosaic-carla-grpc-service</artifactId>
+            <version>${mosaic.version}</version>
+        </dependency>
 
         <!-- Tutorial Applications -->
 
