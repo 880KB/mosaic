@@ -69,6 +69,7 @@
         <module>fed/mosaic-output</module>
         <module>fed/mosaic-sns</module>
         <module>fed/mosaic-sumo</module>
+        <module>fed/mosaic-carla</module>
 
         <module>test/mosaic-integration-tests</module>
 
@@ -467,6 +468,7 @@
                         <excludes>
                             <exclude>target/**</exclude>
                             <exclude>**/ClientServerChannelProtos.java</exclude>
+                            <exclude>**/CarlaLinkServiceGrpc.java</exclude>
                         </excludes>
                         <useDefaultExcludes>true</useDefaultExcludes>
                         <encoding>${project.build.sourceEncoding}</encoding>

@@ -1,0 +1,3413 @@
+{
+  "prototypes": [
+    {
+      "name": "PKW",
+      "applications": [
+        "org.eclipse.mosaic.fed.application.app.empty.Vehicle"
+      ]
+    }
+  ],
+  "chargingStations": [],
+  "vehicles": [
+    {
+      "startingTime": 0.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "0"
+    },
+    {
+      "startingTime": 1.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.isetta"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "1"
+    },
+    {
+      "startingTime": 2.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.model3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "2"
+    },
+    {
+      "startingTime": 3.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mini.cooperst"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "3"
+    },
+    {
+      "startingTime": 4.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "4"
+    },
+    {
+      "startingTime": 5.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "5"
+    },
+    {
+      "startingTime": 6.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "6"
+    },
+    {
+      "startingTime": 7.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "7"
+    },
+    {
+      "startingTime": 8.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "8"
+    },
+    {
+      "startingTime": 9.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.volkswagen.t2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "9"
+    },
+    {
+      "startingTime": 10.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.carlamotors.carlacola"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "10"
+    },
+    {
+      "startingTime": 11.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.toyota.prius"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "11"
+    },
+    {
+      "startingTime": 12.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.micra"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "12"
+    },
+    {
+      "startingTime": 13.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.micra"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "13"
+    },
+    {
+      "startingTime": 14.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "14"
+    },
+    {
+      "startingTime": 15.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "15"
+    },
+    {
+      "startingTime": 16.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "16"
+    },
+    {
+      "startingTime": 17.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "17"
+    },
+    {
+      "startingTime": 18.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "18"
+    },
+    {
+      "startingTime": 19.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.yamaha.yzf"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "19"
+    },
+    {
+      "startingTime": 20.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mini.cooperst"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "20"
+    },
+    {
+      "startingTime": 21.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.patrol"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "21"
+    },
+    {
+      "startingTime": 22.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.grandtourer"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "22"
+    },
+    {
+      "startingTime": 23.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mini.cooperst"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "23"
+    },
+    {
+      "startingTime": 24.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "24"
+    },
+    {
+      "startingTime": 25.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.model3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "25"
+    },
+    {
+      "startingTime": 26.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.dodge_charger.police"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "26"
+    },
+    {
+      "startingTime": 27.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "27"
+    },
+    {
+      "startingTime": 28.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.toyota.prius"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "28"
+    },
+    {
+      "startingTime": 29.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.isetta"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "29"
+    },
+    {
+      "startingTime": 30.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "30"
+    },
+    {
+      "startingTime": 31.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "31"
+    },
+    {
+      "startingTime": 32.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "32"
+    },
+    {
+      "startingTime": 33.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "33"
+    },
+    {
+      "startingTime": 34.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "34"
+    },
+    {
+      "startingTime": 35.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.gazelle.omafiets"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "35"
+    },
+    {
+      "startingTime": 36.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "36"
+    },
+    {
+      "startingTime": 37.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.etron"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "37"
+    },
+    {
+      "startingTime": 38.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.yamaha.yzf"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "38"
+    },
+    {
+      "startingTime": 39.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.gazelle.omafiets"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "39"
+    },
+    {
+      "startingTime": 40.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "40"
+    },
+    {
+      "startingTime": 41.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "41"
+    },
+    {
+      "startingTime": 42.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "42"
+    },
+    {
+      "startingTime": 43.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "43"
+    },
+    {
+      "startingTime": 44.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "44"
+    },
+    {
+      "startingTime": 45.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.volkswagen.t2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "45"
+    },
+    {
+      "startingTime": 46.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "46"
+    },
+    {
+      "startingTime": 47.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "47"
+    },
+    {
+      "startingTime": 48.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "48"
+    },
+    {
+      "startingTime": 49.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "49"
+    },
+    {
+      "startingTime": 50.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.gazelle.omafiets"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "50"
+    },
+    {
+      "startingTime": 51.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "51"
+    },
+    {
+      "startingTime": 52.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "52"
+    },
+    {
+      "startingTime": 53.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "53"
+    },
+    {
+      "startingTime": 54.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.kawasaki.ninja"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "54"
+    },
+    {
+      "startingTime": 55.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "55"
+    },
+    {
+      "startingTime": 56.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "56"
+    },
+    {
+      "startingTime": 57.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.isetta"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "57"
+    },
+    {
+      "startingTime": 58.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "58"
+    },
+    {
+      "startingTime": 59.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.grandtourer"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "59"
+    },
+    {
+      "startingTime": 60.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "60"
+    },
+    {
+      "startingTime": 61.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.kawasaki.ninja"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "61"
+    },
+    {
+      "startingTime": 62.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.toyota.prius"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "62"
+    },
+    {
+      "startingTime": 63.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "63"
+    },
+    {
+      "startingTime": 64.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "64"
+    },
+    {
+      "startingTime": 65.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.kawasaki.ninja"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "65"
+    },
+    {
+      "startingTime": 66.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "66"
+    },
+    {
+      "startingTime": 67.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "67"
+    },
+    {
+      "startingTime": 68.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "68"
+    },
+    {
+      "startingTime": 69.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.tt"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "69"
+    },
+    {
+      "startingTime": 70.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.a2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "70"
+    },
+    {
+      "startingTime": 71.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "71"
+    },
+    {
+      "startingTime": 72.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "72"
+    },
+    {
+      "startingTime": 73.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "73"
+    },
+    {
+      "startingTime": 74.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "74"
+    },
+    {
+      "startingTime": 75.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "75"
+    },
+    {
+      "startingTime": 76.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.carlamotors.carlacola"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "76"
+    },
+    {
+      "startingTime": 77.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "77"
+    },
+    {
+      "startingTime": 78.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mini.cooperst"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "78"
+    },
+    {
+      "startingTime": 79.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "79"
+    },
+    {
+      "startingTime": 80.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.carlamotors.carlacola"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "80"
+    },
+    {
+      "startingTime": 81.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.etron"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "81"
+    },
+    {
+      "startingTime": 82.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.toyota.prius"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "82"
+    },
+    {
+      "startingTime": 83.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.volkswagen.t2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "83"
+    },
+    {
+      "startingTime": 84.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.micra"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "84"
+    },
+    {
+      "startingTime": 85.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.gazelle.omafiets"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "85"
+    },
+    {
+      "startingTime": 86.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "86"
+    },
+    {
+      "startingTime": 87.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "87"
+    },
+    {
+      "startingTime": 88.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "88"
+    },
+    {
+      "startingTime": 89.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "89"
+    },
+    {
+      "startingTime": 90.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.yamaha.yzf"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "90"
+    },
+    {
+      "startingTime": 91.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "91"
+    },
+    {
+      "startingTime": 92.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.kawasaki.ninja"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "92"
+    },
+    {
+      "startingTime": 93.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "93"
+    },
+    {
+      "startingTime": 94.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "94"
+    },
+    {
+      "startingTime": 95.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.yamaha.yzf"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "95"
+    },
+    {
+      "startingTime": 96.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "96"
+    },
+    {
+      "startingTime": 97.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.micra"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "97"
+    },
+    {
+      "startingTime": 98.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.yamaha.yzf"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "98"
+    },
+    {
+      "startingTime": 99.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.etron"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "99"
+    },
+    {
+      "startingTime": 100.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.grandtourer"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "100"
+    },
+    {
+      "startingTime": 101.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.a2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "101"
+    },
+    {
+      "startingTime": 102.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "102"
+    },
+    {
+      "startingTime": 103.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.dodge_charger.police"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "103"
+    },
+    {
+      "startingTime": 104.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.model3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "104"
+    },
+    {
+      "startingTime": 105.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "105"
+    },
+    {
+      "startingTime": 106.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "106"
+    },
+    {
+      "startingTime": 107.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "107"
+    },
+    {
+      "startingTime": 108.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.a2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "108"
+    },
+    {
+      "startingTime": 109.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "109"
+    },
+    {
+      "startingTime": 110.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "110"
+    },
+    {
+      "startingTime": 111.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.model3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "111"
+    },
+    {
+      "startingTime": 112.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "112"
+    },
+    {
+      "startingTime": 113.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.dodge_charger.police"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "113"
+    },
+    {
+      "startingTime": 114.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.gazelle.omafiets"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "114"
+    },
+    {
+      "startingTime": 115.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "115"
+    },
+    {
+      "startingTime": 116.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "116"
+    },
+    {
+      "startingTime": 117.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.toyota.prius"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "117"
+    },
+    {
+      "startingTime": 118.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "118"
+    },
+    {
+      "startingTime": 119.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.seat.leon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "119"
+    },
+    {
+      "startingTime": 120.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.kawasaki.ninja"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "120"
+    },
+    {
+      "startingTime": 121.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "121"
+    },
+    {
+      "startingTime": 122.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.model3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "122"
+    },
+    {
+      "startingTime": 123.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "123"
+    },
+    {
+      "startingTime": 124.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "124"
+    },
+    {
+      "startingTime": 125.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.seat.leon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "125"
+    },
+    {
+      "startingTime": 126.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.patrol"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "126"
+    },
+    {
+      "startingTime": 127.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "127"
+    },
+    {
+      "startingTime": 128.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.dodge_charger.police"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "128"
+    },
+    {
+      "startingTime": 129.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.yamaha.yzf"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "129"
+    },
+    {
+      "startingTime": 130.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.patrol"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "130"
+    },
+    {
+      "startingTime": 131.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mini.cooperst"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "131"
+    },
+    {
+      "startingTime": 132.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "132"
+    },
+    {
+      "startingTime": 133.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "133"
+    },
+    {
+      "startingTime": 134.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.diamondback.century"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "134"
+    },
+    {
+      "startingTime": 135.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.kawasaki.ninja"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "135"
+    },
+    {
+      "startingTime": 136.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "136"
+    },
+    {
+      "startingTime": 137.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mini.cooperst"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "137"
+    },
+    {
+      "startingTime": 138.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.carlamotors.carlacola"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "138"
+    },
+    {
+      "startingTime": 139.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "139"
+    },
+    {
+      "startingTime": 140.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "140"
+    },
+    {
+      "startingTime": 141.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.grandtourer"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "141"
+    },
+    {
+      "startingTime": 142.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.dodge_charger.police"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "142"
+    },
+    {
+      "startingTime": 143.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.patrol"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "143"
+    },
+    {
+      "startingTime": 144.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.a2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "144"
+    },
+    {
+      "startingTime": 145.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.tt"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "145"
+    },
+    {
+      "startingTime": 146.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "146"
+    },
+    {
+      "startingTime": 147.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.grandtourer"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "147"
+    },
+    {
+      "startingTime": 148.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.a2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "148"
+    },
+    {
+      "startingTime": 149.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.micra"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "149"
+    },
+    {
+      "startingTime": 150.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "150"
+    },
+    {
+      "startingTime": 151.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "151"
+    },
+    {
+      "startingTime": 152.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bh.crossbike"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "152"
+    },
+    {
+      "startingTime": 153.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.volkswagen.t2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "153"
+    },
+    {
+      "startingTime": 154.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "154"
+    },
+    {
+      "startingTime": 155.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "155"
+    },
+    {
+      "startingTime": 156.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.isetta"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "156"
+    },
+    {
+      "startingTime": 157.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.tt"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "157"
+    },
+    {
+      "startingTime": 158.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.grandtourer"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "158"
+    },
+    {
+      "startingTime": 159.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.seat.leon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "159"
+    },
+    {
+      "startingTime": 160.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "160"
+    },
+    {
+      "startingTime": 161.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "161"
+    },
+    {
+      "startingTime": 162.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "162"
+    },
+    {
+      "startingTime": 163.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mini.cooperst"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "163"
+    },
+    {
+      "startingTime": 164.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.volkswagen.t2"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "164"
+    },
+    {
+      "startingTime": 165.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "165"
+    },
+    {
+      "startingTime": 166.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "166"
+    },
+    {
+      "startingTime": 167.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.micra"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "167"
+    },
+    {
+      "startingTime": 168.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "168"
+    },
+    {
+      "startingTime": 169.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.cybertruck"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "169"
+    },
+    {
+      "startingTime": 170.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.tt"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "170"
+    },
+    {
+      "startingTime": 171.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.tt"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "171"
+    },
+    {
+      "startingTime": 172.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "172"
+    },
+    {
+      "startingTime": 173.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "173"
+    },
+    {
+      "startingTime": 174.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.nissan.micra"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "174"
+    },
+    {
+      "startingTime": 175.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.tt"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "175"
+    },
+    {
+      "startingTime": 176.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "176"
+    },
+    {
+      "startingTime": 177.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "177"
+    },
+    {
+      "startingTime": 178.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "178"
+    },
+    {
+      "startingTime": 179.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.tesla.model3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "179"
+    },
+    {
+      "startingTime": 180.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mustang.mustang"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "180"
+    },
+    {
+      "startingTime": 181.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.citroen.c3"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "181"
+    },
+    {
+      "startingTime": 182.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.dodge_charger.police"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "182"
+    },
+    {
+      "startingTime": 183.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "183"
+    },
+    {
+      "startingTime": 184.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "184"
+    },
+    {
+      "startingTime": 185.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "185"
+    },
+    {
+      "startingTime": 186.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "186"
+    },
+    {
+      "startingTime": 187.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "187"
+    },
+    {
+      "startingTime": 188.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.etron"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "188"
+    },
+    {
+      "startingTime": 189.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.toyota.prius"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "189"
+    },
+    {
+      "startingTime": 190.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "190"
+    },
+    {
+      "startingTime": 191.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.lincoln.mkz2017"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "191"
+    },
+    {
+      "startingTime": 192.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.harley-davidson.low_rider"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "192"
+    },
+    {
+      "startingTime": 193.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.audi.etron"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "193"
+    },
+    {
+      "startingTime": 194.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.jeep.wrangler_rubicon"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "194"
+    },
+    {
+      "startingTime": 195.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.bmw.isetta"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "195"
+    },
+    {
+      "startingTime": 196.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.mercedes-benz.coupe"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "196"
+    },
+    {
+      "startingTime": 197.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.dodge_charger.police"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "197"
+    },
+    {
+      "startingTime": 198.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.gazelle.omafiets"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "198"
+    },
+    {
+      "startingTime": 199.0,
+      "targetFlow": 600.0,
+      "spawningMode": "CONSTANT",
+      "maxNumberVehicles": 1,
+      "laneSelectionMode": "BEST",
+      "departSpeed": 0.0,
+      "departSpeedMode": "MAXIMUM",
+      "types": [
+        {
+          "name": "vehicle.chevrolet.impala"
+        }
+      ],
+      "deterministic": true,
+      "pos": 0,
+      "route": "199"
+    }
+  ]
+}

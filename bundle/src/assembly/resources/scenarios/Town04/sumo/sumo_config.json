@@ -1,0 +1,5 @@
+{
+	"updateInterval" : 100,
+	"subscribeToAllVehicles" : true,
+	"sumoConfigurationFile": "Town04.sumocfg"
+}

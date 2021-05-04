@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+//import "carla_server.proto";
+
+option java_multiple_files = true;
+option java_package = "org.eclipse.mosaic.fed.carla.grpc";
+option java_outer_classname = "CarlaLink";
+
+package org.eclipse.mosaic.fed.carla.grpc;
+
+// The greeting service definition.
+service CarlaLinkService {  
+  rpc GetActor (ActorRequest) returns (Vehicle) {}
+  rpc GetDepartedIDList (Empty) returns (DepartedActors) {}
+  rpc GetArrivedIDList (Empty) returns (ArrivedActors) {}
+  rpc AddVehicle (Vehicle) returns (Empty) {}
+  rpc RemoveVehicle (Vehicle) returns (Empty) {}
+  rpc UpdateVehicle (Vehicle) returns (Empty) {}
+  rpc SimulationStep (Step) returns (StepResult) {}
+}
+
+message Step {
+
+}
+
+message StepResult {
+    repeated SpawnRequest add_actors = 1;
+    repeated DestroyRequest remove_actors = 2;
+    repeated MoveRequest move_actors = 3;
+}
+
+message ActorRequest {
+  string actor_id = 1;
+}
+
+message SpawnRequest {
+  string actor_id = 1;
+  string route = 2;
+  string type_id = 3;
+  string color = 4;
+}
+
+message DestroyRequest {
+  string actor_id = 1;
+}
+
+message MoveRequest {
+  string actor_id = 1;
+  double loc_x = 2;
+  double loc_y = 3;
+  double yaw = 4;
+  int32 keep_route = 5;
+  int32 signals = 6;
+}
+
+message Location {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Rotation {
+  double slope = 1;
+  double angle = 2;
+}
+
+message Vehicle {
+  string id = 1;
+  string type_id = 2;
+  string vclass = 3;
+  string color = 4;
+  
+  string length = 5;
+  string width = 6;
+  string height = 7;
+  
+  Location location = 8;
+  Rotation rotation = 9;
+  
+  int32 signals = 10;
+}
+
+message DepartedActors {
+  repeated Vehicle actors = 1;
+}
+
+message ArrivedActors {
+  repeated Vehicle actors = 1;
+}
+
+message Empty {
+
+}

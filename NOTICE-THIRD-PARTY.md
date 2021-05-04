@@ -5,6 +5,14 @@ Maps Icons Collection
 * License: Creative Commons Attribution-Share Alike 3.0 Unported license (CC BY SA 3.0)
 * Project: https://mapicons.mapsmarker.com
 
+Animal Sniffer Annotations (1.18)
+
+ * License: MIT license
+ * Maven artifact: `org.codehaus.mojo:animal-sniffer-annotations:1.18`
+ * Project: http://www.mojohaus.org/animal-sniffer/animal-sniffer-annotations
+ * Source: https://github.com/mojohaus/animal-sniffer/animal-sniffer-annotations
+
+
 Apache Commons CLI (1.4)
 
  * License: Apache License, Version 2.0
@@ -61,6 +69,14 @@ Apache Commons Text (1.6)
  * Source: https://git-wip-us.apache.org/repos/asf?p=commons-text
 
 
+Checker Qual (2.5.5)
+
+ * License: GNU General Public License, version 2 (GPL2), with the classpath exception, The MIT License
+ * Maven artifact: `org.checkerframework:checker-compat-qual:2.5.5`
+ * Project: https://checkerframework.org
+ * Source: https://github.com/typetools/checker-framework
+
+
 Commons Compiler (2.7.5)
 
  * License: New BSD License
@@ -77,6 +93,14 @@ Commons JXPath (1.3)
  * Source: https://svn.apache.org/repos/asf/commons/proper/jxpath/trunk
 
 
+error-prone annotations (2.3.4)
+
+ * License: Apache 2.0
+ * Maven artifact: `com.google.errorprone:error_prone_annotations:2.3.4`
+ * Project: http://nexus.sonatype.org/oss-repository-hosting.html/error_prone_parent/error_prone_annotations
+ * Source: https://github.com/google/error-prone/error_prone_annotations
+
+
 Findbugs Annotations under Apache License (1.3.9-1)
 
  * License: Apache License, Version 2.0
@@ -91,6 +115,14 @@ FindBugs-jsr305 (3.0.2)
  * Maven artifact: `com.google.code.findbugs:jsr305:3.0.2`
  * Project: http://findbugs.sourceforge.net/
  * Source: https://code.google.com/p/jsr-305/
+
+
+Google Android Annotations Library (4.1.1.4)
+
+ * License: Apache 2.0
+ * Maven artifact: `com.google.android:annotations:4.1.1.4`
+ * Project: http://source.android.com/
+ * Source: https://android.kernel.org/
 
 
 GraphHopper API (0.13.0)
@@ -117,6 +149,22 @@ Gson (2.8.6)
  * Source: https://github.com/google/gson/gson/
 
 
+Guava InternalFutureFailureAccess and InternalFutures (1.0.1)
+
+ * License: The Apache Software License, Version 2.0
+ * Maven artifact: `com.google.guava:failureaccess:1.0.1`
+ * Project: https://github.com/google/guava/failureaccess
+ * Source: https://github.com/google/guava/failureaccess
+
+
+Guava ListenableFuture only (9999.0-empty-to-avoid-conflict-with-guava)
+
+ * License: The Apache Software License, Version 2.0
+ * Maven artifact: `com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava`
+ * Project: https://github.com/google/guava/listenablefuture
+ * Source: https://github.com/google/guava/listenablefuture
+
+
 Guava: Google Core Libraries for Java (28.2-jre)
 
  * License: Apache License, Version 2.0
@@ -131,6 +179,70 @@ HPPC Collections (0.8.1)
  * Maven artifact: `com.carrotsearch:hppc:0.8.1`
  * Project: http://labs.carrotsearch.com/hppc.html/hppc
  * Source: https://github.com/carrotsearch/hppc/hppc
+
+
+io.grpc:grpc-api (1.34.1)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.grpc:grpc-api:1.34.1`
+ * Project: https://github.com/grpc/grpc-java
+ * Source: https://github.com/grpc/grpc-java
+
+
+io.grpc:grpc-context (1.34.1)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.grpc:grpc-context:1.34.1`
+ * Project: https://github.com/grpc/grpc-java
+ * Source: https://github.com/grpc/grpc-java
+
+
+io.grpc:grpc-core (1.34.1)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.grpc:grpc-core:1.34.1`
+ * Project: https://github.com/grpc/grpc-java
+ * Source: https://github.com/grpc/grpc-java
+
+
+io.grpc:grpc-netty-shaded (1.34.1)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.grpc:grpc-netty-shaded:1.34.1`
+ * Project: https://github.com/grpc/grpc-java
+ * Source: https://github.com/grpc/grpc-java
+
+
+io.grpc:grpc-protobuf (1.34.1)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.grpc:grpc-protobuf:1.34.1`
+ * Project: https://github.com/grpc/grpc-java
+ * Source: https://github.com/grpc/grpc-java
+
+
+io.grpc:grpc-protobuf-lite (1.34.1)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.grpc:grpc-protobuf-lite:1.34.1`
+ * Project: https://github.com/grpc/grpc-java
+ * Source: https://github.com/grpc/grpc-java
+
+
+io.grpc:grpc-stub (1.34.1)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.grpc:grpc-stub:1.34.1`
+ * Project: https://github.com/grpc/grpc-java
+ * Source: https://github.com/grpc/grpc-java
+
+
+J2ObjC Annotations (1.3)
+
+ * License: The Apache Software License, Version 2.0
+ * Maven artifact: `com.google.j2objc:j2objc-annotations:1.3`
+ * Project: https://github.com/google/j2objc/
+ * Source: https://svn.sonatype.org/spice/tags/oss-parent-7/j2objc-annotations
 
 
 Jackson module: JAXB Annotations (2.9.9)
@@ -189,6 +301,14 @@ Java-WebSocket (1.3.9)
  * Source: https://github.com/TooTallNate/Java-WebSocket
 
 
+javax.annotation API (1.3.2)
+
+ * License: CDDL + GPLv2 with classpath exception
+ * Maven artifact: `javax.annotation:javax.annotation-api:1.3.2`
+ * Project: http://jcp.org/en/jsr/detail?id=250
+ * Source: https://github.com/javaee/javax.annotation
+
+
 Johnzon :: Core (1.1.13)
 
  * License: The Apache Software License, Version 2.0
@@ -237,10 +357,26 @@ org.leadpony.justify (1.1.0)
  * Source: https://github.com/leadpony/justify
 
 
-Protocol Buffers [Core] (3.8.0)
+perfmark:perfmark-api (0.19.0)
+
+ * License: Apache 2.0
+ * Maven artifact: `io.perfmark:perfmark-api:0.19.0`
+ * Project: https://github.com/perfmark/perfmark
+ * Source: https://github.com/perfmark/perfmark
+
+
+proto-google-common-protos (1.17.0)
+
+ * License: Apache-2.0
+ * Maven artifact: `com.google.api.grpc:proto-google-common-protos:1.17.0`
+ * Project: https://github.com/googleapis/api-client-staging
+ * Source: https://github.com/googleapis/api-client-staging
+
+
+Protocol Buffers [Core] (3.12.0)
 
  * License: 3-Clause BSD License
- * Maven artifact: `com.google.protobuf:protobuf-java:3.8.0`
+ * Maven artifact: `com.google.protobuf:protobuf-java:3.12.0`
  * Project: https://developers.google.com/protocol-buffers/protobuf-java/
  * Source: https://github.com/protocolbuffers/protobuf/protobuf-java
 
