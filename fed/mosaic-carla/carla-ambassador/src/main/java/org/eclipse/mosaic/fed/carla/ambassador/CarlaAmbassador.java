@@ -14,12 +14,23 @@
  */
 package org.eclipse.mosaic.fed.carla.ambassador;
 
+import com.google.common.collect.Lists;
 import io.grpc.Channel;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import org.eclipse.mosaic.fed.carla.grpc.MoveRequest;
+import org.eclipse.mosaic.fed.carla.grpc.SpawnRequest;
+import org.eclipse.mosaic.fed.carla.grpc.StepResult;
 import org.eclipse.mosaic.fed.carla.grpcstubs.CarlaGrpcClient;
+import org.eclipse.mosaic.interactions.mapping.VehicleRegistration;
 import org.eclipse.mosaic.interactions.traffic.VehicleUpdates;
-import org.eclipse.mosaic.lib.objects.vehicle.VehicleData;
+import org.eclipse.mosaic.interactions.vehicle.VehicleFederateAssignment;
+import org.eclipse.mosaic.interactions.vehicle.VehicleRouteRegistration;
+import org.eclipse.mosaic.lib.enums.DriveDirection;
+import org.eclipse.mosaic.lib.geo.CartesianPoint;
+import org.eclipse.mosaic.lib.geo.GeoPoint;
+import org.eclipse.mosaic.lib.objects.vehicle.*;
+import org.eclipse.mosaic.rti.TIME;
 import org.eclipse.mosaic.rti.api.AbstractFederateAmbassador;
 import org.eclipse.mosaic.rti.api.IllegalValueException;
 import org.eclipse.mosaic.rti.api.Interaction;
@@ -51,6 +62,11 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private final List<Interaction> interactionList = new ArrayList<>();
 
+    /**
+     * Group name of all Carla controlled vehicles. Is used during vehicle registration.
+     */
+    private final String vehicleGroup = "carla-controlled";
+
     public CarlaAmbassador(AmbassadorParameter ambassadorParameter) {
         super(ambassadorParameter);
         log.info("Carla Ambassador successful started!");
@@ -66,6 +82,11 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     @Override
     public void initialize(long startTime, long endTime) throws InternalFederateException {
         super.initialize(startTime, endTime);
+
+        // TODO: something is wrong
+        CartesianPoint cartesianPoint = CartesianPoint.xyz(513.1, 423.80, 0.0);
+        System.out.println("GEO: " + cartesianPoint.toGeo().toString());
+        System.out.println(cartesianPoint + " : " + cartesianPoint.toGeo().toCartesian().toString());
 
         nextTimeStep = startTime;
 
@@ -172,10 +193,144 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             processInteractionAdvanced(interaction, time);
         }
         interactionList.clear();
-        // send simulationStep to tick carla simulation
-        // TODO transfer carla data to mosaic
-        client.simulationStep();
 
+        if (time < nextTimeStep) {
+            // process time advance only if time is equal or greater than the next simulation time step
+            return;
+        }
+
+        // interact with Carla
+        try {
+            // send simulationStep to tick carla simulation
+            StepResult carlaStepResult = client.simulationStep();
+            // TODO: get step size (100) from config file
+            this.nextTimeStep += 100 * TIME.MILLI_SECOND;
+
+            // add Carla controlled vehicles
+            if (carlaStepResult.getAddActorsList().size() > 0) {
+                spawnCarlaVehicles(carlaStepResult.getAddActorsList(), time);
+            }
+
+            // update Carla controlled vehicles
+            if (carlaStepResult.getMoveActorsList().size() > 0) {
+                updateCarlaVehicles(carlaStepResult.getMoveActorsList(), time);
+            }
+
+//            rti.requestAdvanceTime(nextTimeStep, 0, (byte) 2);
+
+        } catch (InternalFederateException  e) {
+            log.error("Error during advanceTime(" + time + ")", e);
+            throw new InternalFederateException(e);
+        }
+    }
+
+    /**
+     * Adds new vehicles to the simulation that are controlled by Carla.
+     * @param spawnRequests List of spawn requests for Carla controlled vehicles
+     * @param time Time of next simulation step
+     * @throws InternalFederateException
+     */
+    private void spawnCarlaVehicles(List<SpawnRequest> spawnRequests, long time) throws InternalFederateException {
+        try {
+            log.info("* adding " + spawnRequests.size() + " Carla controlled vehicle to the simulation: " +
+                    spawnRequests.get(0).getActorId() + " with route id " + spawnRequests.get(0).getRoute());
+
+            // TODO: loop over spawn requests
+            SpawnRequest spawnRequest = spawnRequests.get(0);
+
+            String vehicleId = spawnRequest.getActorId();
+            // TODO: define vehicle type
+            VehicleType vehicleType = new VehicleType(spawnRequest.getTypeId());
+            // TODO: generate individual route id?
+            String routeId = "carlaRoute";
+
+            // Define vehicle route
+            // TODO: better definition of route?
+            List<String> edgeList = new ArrayList<>();
+            edgeList.add("-46.0.00");
+            VehicleRoute vehicleRoute = new VehicleRoute(routeId, edgeList, null, 0.1);
+            VehicleRouteRegistration vehicleRouteRegistration = new VehicleRouteRegistration(time, vehicleRoute);
+            try {
+                rti.triggerInteraction(vehicleRouteRegistration);
+            } catch (Exception e) {
+                log.error("Could not create route for Carla vehicle");
+            }
+
+            // register vehicle to rti
+            // TODO: better selection of departure lane?
+            // TODO: better selection of speed?
+            VehicleDeparture vehicleDeparture = new VehicleDeparture.Builder(routeId)
+                    .departureLane(VehicleDeparture.LaneSelectionMode.FIRST, 1, 0)
+                    .departureSpeed(0.0)
+                    .create();
+            VehicleRegistration vehicleRegistration = new VehicleRegistration(time, vehicleId, vehicleGroup,
+                    Lists.newArrayList(), vehicleDeparture, vehicleType);
+            rti. triggerInteraction(vehicleRegistration);
+
+            // declare vehicle as externally controlled
+            // TODO: define vehicle radius
+            VehicleFederateAssignment vehicleFederateAssignment = new VehicleFederateAssignment(time, vehicleId, getId(),
+                    10);
+            rti.triggerInteraction(vehicleFederateAssignment);
+
+        } catch (InternalFederateException e) {
+            log.error("Could not spawn Carla vehicle (InternalFederateException)");
+        } catch (IllegalValueException e) {
+            log.error("Could not spawn Carla vehicle (IllegalValueException)");
+            throw new InternalFederateException(e);
+        }
+    }
+
+    /**
+     * Updates vehicles that are controlled by Carla.
+     * @param moveRequests List of move requests for Carla controlled vehicles
+     * @param time Time of next simulation step
+     * @throws InternalFederateException
+     */
+    private void updateCarlaVehicles(List<MoveRequest> moveRequests, long time) throws InternalFederateException {
+        try {
+            // log.info("* Updating Carla vehicle " + moveRequests.get(0).getActorId());
+
+            // TODO: loop over move requests
+            MoveRequest moveRequest = moveRequests.get(0);
+
+            String vehicleId = moveRequest.getActorId();
+
+            // compute vehicle's next position
+            // TODO: add z position?
+            CartesianPoint cartesianPoint = CartesianPoint.xyz(moveRequest.getLocX(), moveRequest.getLocY(), 0.0);
+            GeoPoint geoPoint = cartesianPoint.toGeo();
+
+            // TODO: set vehicle's actual signals
+            VehicleSignals vehicleSignals = new VehicleSignals(false, false,
+                    false, false, false);
+
+            // generate vehicle data and send to rti
+            // TODO: what relevance have .stopped() and .movement() ?
+            // TODO: set actual drive direction
+            // TODO: set actual slope
+            VehicleData vehicleData = new VehicleData.Builder(time, vehicleId)
+                    .stopped(false)
+                    .movement(0.0, 0.0, 0.0)
+                    .signals(vehicleSignals)
+                    .position(geoPoint, cartesianPoint)
+                    .orientation(DriveDirection.FORWARD, moveRequest.getYaw(), 0)
+                    .create();
+            // push vehicle data in list
+            List<VehicleData> vehicleUpdateList = new ArrayList<>();
+            vehicleUpdateList.add(vehicleData);
+            VehicleUpdates vehicleUpdates = new VehicleUpdates(time,
+                    Lists.newArrayList(),
+                    vehicleUpdateList,
+                    Lists.newArrayList());
+            rti.triggerInteraction(vehicleUpdates);
+
+        } catch (InternalFederateException e) {
+            log.error("Could not update Carla vehicle (InternalFederateException)");
+        } catch (IllegalValueException e) {
+            log.error("Could not update Carla vehicle (IllegalValueException)");
+            throw new InternalFederateException(e);
+        }
     }
 
     @Override
