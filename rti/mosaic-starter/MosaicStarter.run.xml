@@ -3,7 +3,7 @@
     <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
     <option name="MAIN_CLASS_NAME" value="org.eclipse.mosaic.starter.MosaicStarter" />
     <module name="mosaic-starter" />
-    <option name="PROGRAM_PARAMETERS" value="-c scenarios/Town04/scenario_config.json" />
+    <option name="PROGRAM_PARAMETERS" value="-c scenarios/Town04/scenario_config.json -w 0" />
     <option name="WORKING_DIRECTORY" value="bundle/src/assembly/resources" />
     <extension name="coverage">
       <pattern>

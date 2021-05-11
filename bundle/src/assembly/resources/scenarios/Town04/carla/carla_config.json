@@ -1,4 +1,4 @@
 {
     "sumoConfigurationFile": "Town04.sumocfg",
-    "updateInterval": 1000
+    "updateInterval": 100
 }
