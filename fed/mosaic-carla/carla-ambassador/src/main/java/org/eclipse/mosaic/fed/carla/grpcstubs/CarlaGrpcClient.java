@@ -18,6 +18,7 @@ package org.eclipse.mosaic.fed.carla.grpcstubs;
 import io.grpc.Channel;
 import org.eclipse.mosaic.fed.carla.grpc.*;
 import org.eclipse.mosaic.lib.objects.vehicle.VehicleData;
+import org.eclipse.mosaic.lib.objects.vehicle.VehicleType;
 
 /**
  * grpc-client that connects to the grpc-carla-server
@@ -34,18 +35,19 @@ public class CarlaGrpcClient {
         return blockingStub.simulationStep(request);
     }
 
-    public void addVehicle(VehicleData data) {
+    public void addVehicle(VehicleData data, VehicleType vehicleType) {
         Vehicle request = Vehicle.newBuilder().setId(data.getName())
-//                .setTypeId("vehicle.citroen.c3").setVclass("passenger")
-//                .setLength("3.975347753394775").setWidth("1.862074851989746").setHeight("1.6257729530334473")
+                .setTypeId(vehicleType.getName())
+                .setLength(String.valueOf(vehicleType.getLength()))
+                // TODO: set width and height?
                 .setLocation(
                         Location.newBuilder().setX(data.getProjectedPosition().getX())
                                 .setY(data.getProjectedPosition().getY())
                                 .setZ(data.getProjectedPosition().getZ()))
                 .setRotation(
                         Rotation.newBuilder().setSlope(data.getSlope())
-                                .setAngle(data.getHeading()).build()
-                ).build();
+                                .setAngle(data.getHeading()).build())
+                .build();
         blockingStub.addVehicle(request);
     }
 
@@ -59,8 +61,8 @@ public class CarlaGrpcClient {
                                 .setZ(data.getProjectedPosition().getZ()))
                 .setRotation(
                         Rotation.newBuilder().setSlope(data.getSlope())
-                                .setAngle(data.getHeading()).build()
-                ).build();
+                                .setAngle(data.getHeading()).build())
+                .build();
         blockingStub.updateVehicle(request);
     }
 

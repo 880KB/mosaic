@@ -38,6 +38,7 @@ import org.eclipse.mosaic.rti.api.InternalFederateException;
 import org.eclipse.mosaic.rti.api.parameters.AmbassadorParameter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -66,6 +67,11 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      * Group name of all Carla controlled vehicles. Is used during vehicle registration.
      */
     private final String vehicleGroup = "carla-controlled";
+
+    /**
+     * Map of vehicles which were registered via the VehicleRegistration interaction (without Carla vehicles).
+     */
+    private HashMap<String, VehicleType> registeredVehicles = new HashMap<>();
 
     public CarlaAmbassador(AmbassadorParameter ambassadorParameter) {
         super(ambassadorParameter);
@@ -141,8 +147,10 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
         if (interaction.getTypeId().equals(VehicleUpdates.TYPE_ID)) {
             receiveInteraction((VehicleUpdates) interaction);
+        } else if (interaction.getTypeId().equals(VehicleRegistration.TYPE_ID)) {
+            receiveInteraction((VehicleRegistration) interaction);
         } else {
-//            log.warn(UNKNOWN_INTERACTION + interaction.getTypeId());
+            log.info("Unused interaction: " + interaction.getTypeId() + " from " + interaction.getSenderId());
         }
     }
 
@@ -170,7 +178,22 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
         for (VehicleData addedVehicle : vehicleUpdates.getAdded()) {
             log.debug("VehicleUpdates: added " + addedVehicle.getName());
-            client.addVehicle(addedVehicle);
+            if (this.registeredVehicles.containsKey(addedVehicle.getName())) {
+                client.addVehicle(addedVehicle, this.registeredVehicles.get(addedVehicle.getName()));
+            } else {
+                log.error("Update for unregistered vehicle + " + addedVehicle.getName() + " received. Ignoring.");
+            }
+        }
+    }
+
+    /**
+     * Keeps track of spawned vehicles which are not controlled by Carla.
+     * @param vehicleRegistration Interaction
+     */
+    private synchronized void receiveInteraction(VehicleRegistration vehicleRegistration) {
+        if (!vehicleRegistration.getSenderId().equals(getId())) {
+            this.registeredVehicles.put(vehicleRegistration.getMapping().getName(),
+                    vehicleRegistration.getMapping().getVehicleType());
         }
     }
 
@@ -216,9 +239,9 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 updateCarlaVehicles(carlaStepResult.getMoveActorsList(), time);
             }
 
-//            rti.requestAdvanceTime(nextTimeStep, 0, (byte) 2);
+            rti.requestAdvanceTime(this.nextTimeStep, 0, (byte) 2);
 
-        } catch (InternalFederateException  e) {
+        } catch (InternalFederateException | IllegalValueException e) {
             log.error("Error during advanceTime(" + time + ")", e);
             throw new InternalFederateException(e);
         }
@@ -272,6 +295,8 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             VehicleFederateAssignment vehicleFederateAssignment = new VehicleFederateAssignment(time, vehicleId, getId(),
                     10);
             rti.triggerInteraction(vehicleFederateAssignment);
+
+            // TODO: define vehicle color
 
         } catch (InternalFederateException e) {
             log.error("Could not spawn Carla vehicle (InternalFederateException)");
