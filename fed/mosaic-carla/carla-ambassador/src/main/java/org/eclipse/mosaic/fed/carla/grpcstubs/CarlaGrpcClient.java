@@ -38,8 +38,12 @@ public class CarlaGrpcClient {
     public void addVehicle(VehicleData data, VehicleType vehicleType) {
         Vehicle request = Vehicle.newBuilder().setId(data.getName())
                 .setTypeId(vehicleType.getName())
+                // TODO: set class
+                .setVclass("passenger")
                 .setLength(String.valueOf(vehicleType.getLength()))
-                // TODO: set width and height?
+                // TODO: set width and height
+                .setHeight("1.62")
+                .setWidth("1.86")
                 .setLocation(
                         Location.newBuilder().setX(data.getProjectedPosition().getX())
                                 .setY(data.getProjectedPosition().getY())
@@ -47,14 +51,20 @@ public class CarlaGrpcClient {
                 .setRotation(
                         Rotation.newBuilder().setSlope(data.getSlope())
                                 .setAngle(data.getHeading()).build())
+                // TODO: set signals
                 .build();
         blockingStub.addVehicle(request);
     }
 
-    public void updateVehicle(VehicleData data) {
+    public void updateVehicle(VehicleData data, VehicleType vehicleType) {
         Vehicle request = Vehicle.newBuilder().setId(data.getName())
-//                .setTypeId("vehicle.audi.a2").setVclass("bus")
-//                .setLength("2").setWidth("2").setHeight("2")
+                .setTypeId(vehicleType.getName())
+                // TODO: set class
+                .setVclass("passenger")
+                .setLength(String.valueOf(vehicleType.getLength()))
+                // TODO: set width and height
+                .setHeight("1.62")
+                .setWidth("1.86")
                 .setLocation(
                         Location.newBuilder().setX(data.getProjectedPosition().getX())
                                 .setY(data.getProjectedPosition().getY())
@@ -62,6 +72,7 @@ public class CarlaGrpcClient {
                 .setRotation(
                         Rotation.newBuilder().setSlope(data.getSlope())
                                 .setAngle(data.getHeading()).build())
+                // TODO: set signals
                 .build();
         blockingStub.updateVehicle(request);
     }

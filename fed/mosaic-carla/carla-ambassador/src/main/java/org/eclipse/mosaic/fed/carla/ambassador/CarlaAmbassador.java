@@ -168,7 +168,11 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
         for (VehicleData updatedVehicle : vehicleUpdates.getUpdated()) {
             log.debug("VehicleUpdates: update " + updatedVehicle.getName());
-            client.updateVehicle(updatedVehicle);
+            if (this.registeredVehicles.containsKey(updatedVehicle.getName())) {
+                client.updateVehicle(updatedVehicle, this.registeredVehicles.get(updatedVehicle.getName()));
+            } else {
+                log.info("Update for unregistered vehicle + " + updatedVehicle.getName() + " received. Ignoring.");
+            }
         }
 
         for (String removed : vehicleUpdates.getRemovedNames()) {
@@ -181,7 +185,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             if (this.registeredVehicles.containsKey(addedVehicle.getName())) {
                 client.addVehicle(addedVehicle, this.registeredVehicles.get(addedVehicle.getName()));
             } else {
-                log.error("Update for unregistered vehicle + " + addedVehicle.getName() + " received. Ignoring.");
+                log.info("Update for unregistered vehicle + " + addedVehicle.getName() + " received. Ignoring.");
             }
         }
     }
@@ -331,7 +335,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                     false, false, false);
 
             // generate vehicle data and send to rti
-            // TODO: what relevance have .stopped() and .movement() ?
+            // TODO: what relevance have .stopped() and .movement()?
             // TODO: set actual drive direction
             // TODO: set actual slope
             VehicleData vehicleData = new VehicleData.Builder(time, vehicleId)
