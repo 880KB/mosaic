@@ -38,6 +38,9 @@ message SpawnRequest {
   string route = 2;
   string type_id = 3;
   string color = 4;
+  double length = 5;
+  double width = 6;
+  double height = 7;
 }
 
 message DestroyRequest {
@@ -48,9 +51,11 @@ message MoveRequest {
   string actor_id = 1;
   double loc_x = 2;
   double loc_y = 3;
-  double yaw = 4;
-  int32 keep_route = 5;
-  int32 signals = 6;
+  double loc_z = 4;
+  double yaw = 5;
+  double slope = 6;
+  int32 keep_route = 7;
+  int32 signals = 8;
 }
 
 message Location {

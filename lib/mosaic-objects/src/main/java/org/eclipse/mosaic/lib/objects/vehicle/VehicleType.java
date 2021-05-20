@@ -91,6 +91,8 @@ public class VehicleType implements Serializable {
     public final static double DEFAULT_SPEED_DEVIATION = 0.0;
 
 
+    private final double test_value = 0.001;
+
     /**
      * Name of the vehicle type.
      */

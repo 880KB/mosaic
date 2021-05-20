@@ -169,7 +169,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
         for (VehicleData updatedVehicle : vehicleUpdates.getUpdated()) {
             log.debug("VehicleUpdates: update " + updatedVehicle.getName());
             if (this.registeredVehicles.containsKey(updatedVehicle.getName())) {
-                client.updateVehicle(updatedVehicle, this.registeredVehicles.get(updatedVehicle.getName()));
+                client.updateVehicle(updatedVehicle, this.registeredVehicles.get(updatedVehicle.getName()), false);
             } else {
                 log.info("Update for unregistered vehicle + " + updatedVehicle.getName() + " received. Ignoring.");
             }
@@ -183,7 +183,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
         for (VehicleData addedVehicle : vehicleUpdates.getAdded()) {
             log.debug("VehicleUpdates: added " + addedVehicle.getName());
             if (this.registeredVehicles.containsKey(addedVehicle.getName())) {
-                client.addVehicle(addedVehicle, this.registeredVehicles.get(addedVehicle.getName()));
+                client.updateVehicle(addedVehicle, this.registeredVehicles.get(addedVehicle.getName()), true);
             } else {
                 log.info("Update for unregistered vehicle + " + addedVehicle.getName() + " received. Ignoring.");
             }
@@ -259,48 +259,49 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private void spawnCarlaVehicles(List<SpawnRequest> spawnRequests, long time) throws InternalFederateException {
         try {
-            log.info("* adding " + spawnRequests.size() + " Carla controlled vehicle to the simulation: " +
-                    spawnRequests.get(0).getActorId() + " with route id " + spawnRequests.get(0).getRoute());
+            log.info("Adding " + spawnRequests.size() + " Carla controlled vehicle to the simulation");
 
-            // TODO: loop over spawn requests
-            SpawnRequest spawnRequest = spawnRequests.get(0);
+            for (SpawnRequest spawnRequest : spawnRequests) {
+                String vehicleId = spawnRequest.getActorId();
 
-            String vehicleId = spawnRequest.getActorId();
-            // TODO: define vehicle type
-            VehicleType vehicleType = new VehicleType(spawnRequest.getTypeId());
-            // TODO: generate individual route id?
-            String routeId = "carlaRoute";
+                // TODO: width and height not recognized by Traci yet
+                VehicleType vehicleType = new VehicleType(spawnRequest.getTypeId(), spawnRequest.getLength() + 8.0,
+                        spawnRequest.getWidth() + 2.9, spawnRequest.getHeight(), null, null, null,
+                        null, null, null, null, null, null,
+                        spawnRequest.getColor(), null, null);
 
-            // Define vehicle route
-            // TODO: better definition of route?
-            List<String> edgeList = new ArrayList<>();
-            edgeList.add("-46.0.00");
-            VehicleRoute vehicleRoute = new VehicleRoute(routeId, edgeList, null, 0.1);
-            VehicleRouteRegistration vehicleRouteRegistration = new VehicleRouteRegistration(time, vehicleRoute);
-            try {
-                rti.triggerInteraction(vehicleRouteRegistration);
-            } catch (Exception e) {
-                log.error("Could not create route for Carla vehicle");
+                // TODO: generate individual route id?
+                String routeId = "carlaRoute";
+
+                // define vehicle route
+                // TODO: better definition of route?
+                List<String> edgeList = new ArrayList<>();
+                edgeList.add("-46.0.00");
+                VehicleRoute vehicleRoute = new VehicleRoute(routeId, edgeList, null, 0.1);
+                VehicleRouteRegistration vehicleRouteRegistration = new VehicleRouteRegistration(time, vehicleRoute);
+                try {
+                    rti.triggerInteraction(vehicleRouteRegistration);
+                } catch (Exception e) {
+                    log.error("Could not create route for Carla vehicle");
+                }
+
+                // register vehicle to rti
+                // TODO: better selection of departure lane?
+                // TODO: better selection of speed?
+                VehicleDeparture vehicleDeparture = new VehicleDeparture.Builder(routeId)
+                        .departureLane(VehicleDeparture.LaneSelectionMode.FIRST, 1, 0)
+                        .departureSpeed(0.0)
+                        .create();
+                VehicleRegistration vehicleRegistration = new VehicleRegistration(time, vehicleId, vehicleGroup,
+                        Lists.newArrayList(), vehicleDeparture, vehicleType);
+                rti.triggerInteraction(vehicleRegistration);
+
+                // declare vehicle as externally controlled
+                // TODO: define vehicle radius
+                VehicleFederateAssignment vehicleFederateAssignment = new VehicleFederateAssignment(time, vehicleId, getId(),
+                        10);
+                rti.triggerInteraction(vehicleFederateAssignment);
             }
-
-            // register vehicle to rti
-            // TODO: better selection of departure lane?
-            // TODO: better selection of speed?
-            VehicleDeparture vehicleDeparture = new VehicleDeparture.Builder(routeId)
-                    .departureLane(VehicleDeparture.LaneSelectionMode.FIRST, 1, 0)
-                    .departureSpeed(0.0)
-                    .create();
-            VehicleRegistration vehicleRegistration = new VehicleRegistration(time, vehicleId, vehicleGroup,
-                    Lists.newArrayList(), vehicleDeparture, vehicleType);
-            rti. triggerInteraction(vehicleRegistration);
-
-            // declare vehicle as externally controlled
-            // TODO: define vehicle radius
-            VehicleFederateAssignment vehicleFederateAssignment = new VehicleFederateAssignment(time, vehicleId, getId(),
-                    10);
-            rti.triggerInteraction(vehicleFederateAssignment);
-
-            // TODO: define vehicle color
 
         } catch (InternalFederateException e) {
             log.error("Could not spawn Carla vehicle (InternalFederateException)");
@@ -327,7 +328,8 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
             // compute vehicle's next position
             // TODO: add z position?
-            CartesianPoint cartesianPoint = CartesianPoint.xyz(moveRequest.getLocX(), moveRequest.getLocY(), 0.0);
+            CartesianPoint cartesianPoint = CartesianPoint.xyz(moveRequest.getLocX(), moveRequest.getLocY(),
+                    moveRequest.getLocZ());
             GeoPoint geoPoint = cartesianPoint.toGeo();
 
             // TODO: set vehicle's actual signals
@@ -337,13 +339,12 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             // generate vehicle data and send to rti
             // TODO: what relevance have .stopped() and .movement()?
             // TODO: set actual drive direction
-            // TODO: set actual slope
             VehicleData vehicleData = new VehicleData.Builder(time, vehicleId)
                     .stopped(false)
                     .movement(0.0, 0.0, 0.0)
                     .signals(vehicleSignals)
                     .position(geoPoint, cartesianPoint)
-                    .orientation(DriveDirection.FORWARD, moveRequest.getYaw(), 0)
+                    .orientation(DriveDirection.FORWARD, moveRequest.getYaw(), moveRequest.getSlope())
                     .create();
             // push vehicle data in list
             List<VehicleData> vehicleUpdateList = new ArrayList<>();
