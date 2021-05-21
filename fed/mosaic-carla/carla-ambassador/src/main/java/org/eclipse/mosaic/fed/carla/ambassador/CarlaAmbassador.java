@@ -73,6 +73,15 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private HashMap<String, VehicleType> registeredVehicles = new HashMap<>();
 
+    /**
+     * defined vehicle signals bits by Sumo (https://sumo.dlr.de/docs/TraCI/Vehicle_Signalling.html)
+     */
+    private final int VEH_SIGNAL_BLINKER_RIGHT = 0;
+    private final int VEH_SIGNAL_BLINKER_LEFT = 1;
+    private final int VEH_SIGNAL_BLINKER_EMERGENCY = 2;
+    private final int VEH_SIGNAL_BRAKELIGHT = 3;
+    private final int VEH_SIGNAL_BACKDRIVE = 7;
+
     public CarlaAmbassador(AmbassadorParameter ambassadorParameter) {
         super(ambassadorParameter);
         log.info("Carla Ambassador successful started!");
@@ -145,12 +154,15 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             throw new InternalFederateException("Interaction time lies in the future:" + interaction.getTime() + ", current time:" + time);
         }
 
-        if (interaction.getTypeId().equals(VehicleUpdates.TYPE_ID)) {
-            receiveInteraction((VehicleUpdates) interaction);
-        } else if (interaction.getTypeId().equals(VehicleRegistration.TYPE_ID)) {
-            receiveInteraction((VehicleRegistration) interaction);
-        } else {
-            log.info("Unused interaction: " + interaction.getTypeId() + " from " + interaction.getSenderId());
+        // only process interactions not sent by CarlaAmbassador
+        if (!interaction.getSenderId().equals(getId())) {
+            if (interaction.getTypeId().equals(VehicleUpdates.TYPE_ID)) {
+                receiveInteraction((VehicleUpdates) interaction);
+            } else if (interaction.getTypeId().equals(VehicleRegistration.TYPE_ID)) {
+                receiveInteraction((VehicleRegistration) interaction);
+            } else {
+                log.info("Unused interaction: " + interaction.getTypeId() + " from " + interaction.getSenderId());
+            }
         }
     }
 
@@ -176,7 +188,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
         }
 
         for (String removed : vehicleUpdates.getRemovedNames()) {
-            log.debug("VehicleUpdates: remove " + removed.toString());
+            log.debug("VehicleUpdates: remove " + removed);
             client.removeVehicle(removed);
         }
 
@@ -259,22 +271,20 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private void spawnCarlaVehicles(List<SpawnRequest> spawnRequests, long time) throws InternalFederateException {
         try {
-            log.info("Adding " + spawnRequests.size() + " Carla controlled vehicle to the simulation");
+            log.info("Adding " + spawnRequests.size() + " Carla controlled vehicle(s) to the simulation");
 
             for (SpawnRequest spawnRequest : spawnRequests) {
                 String vehicleId = spawnRequest.getActorId();
 
                 // TODO: width and height not recognized by Traci yet
-                VehicleType vehicleType = new VehicleType(spawnRequest.getTypeId(), spawnRequest.getLength() + 8.0,
-                        spawnRequest.getWidth() + 2.9, spawnRequest.getHeight(), null, null, null,
+//                log.info("* Spawn-Dimensions = " + spawnRequest.getLength() + ", " + spawnRequest.getWidth() + ", " + spawnRequest.getHeight());
+                VehicleType vehicleType = new VehicleType(spawnRequest.getTypeId(), spawnRequest.getLength(),
+                        spawnRequest.getWidth(), spawnRequest.getHeight(), null, null, null,
                         null, null, null, null, null, null,
                         spawnRequest.getColor(), null, null);
 
-                // TODO: generate individual route id?
-                String routeId = "carlaRoute";
-
-                // define vehicle route
-                // TODO: better definition of route?
+                // define vehicle route TODO: better definition of route?
+                String routeId = spawnRequest.getRoute();
                 List<String> edgeList = new ArrayList<>();
                 edgeList.add("-46.0.00");
                 VehicleRoute vehicleRoute = new VehicleRoute(routeId, edgeList, null, 0.1);
@@ -286,8 +296,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 }
 
                 // register vehicle to rti
-                // TODO: better selection of departure lane?
-                // TODO: better selection of speed?
+                // TODO: better selection of departure lane and speed?
                 VehicleDeparture vehicleDeparture = new VehicleDeparture.Builder(routeId)
                         .departureLane(VehicleDeparture.LaneSelectionMode.FIRST, 1, 0)
                         .departureSpeed(0.0)
@@ -319,36 +328,28 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private void updateCarlaVehicles(List<MoveRequest> moveRequests, long time) throws InternalFederateException {
         try {
-            // log.info("* Updating Carla vehicle " + moveRequests.get(0).getActorId());
-
-            // TODO: loop over move requests
-            MoveRequest moveRequest = moveRequests.get(0);
-
-            String vehicleId = moveRequest.getActorId();
-
-            // compute vehicle's next position
-            // TODO: add z position?
-            CartesianPoint cartesianPoint = CartesianPoint.xyz(moveRequest.getLocX(), moveRequest.getLocY(),
-                    moveRequest.getLocZ());
-            GeoPoint geoPoint = cartesianPoint.toGeo();
-
-            // TODO: set vehicle's actual signals
-            VehicleSignals vehicleSignals = new VehicleSignals(false, false,
-                    false, false, false);
-
-            // generate vehicle data and send to rti
-            // TODO: what relevance have .stopped() and .movement()?
-            // TODO: set actual drive direction
-            VehicleData vehicleData = new VehicleData.Builder(time, vehicleId)
-                    .stopped(false)
-                    .movement(0.0, 0.0, 0.0)
-                    .signals(vehicleSignals)
-                    .position(geoPoint, cartesianPoint)
-                    .orientation(DriveDirection.FORWARD, moveRequest.getYaw(), moveRequest.getSlope())
-                    .create();
-            // push vehicle data in list
             List<VehicleData> vehicleUpdateList = new ArrayList<>();
-            vehicleUpdateList.add(vehicleData);
+            for (MoveRequest moveRequest : moveRequests) {
+                String vehicleId = moveRequest.getActorId();
+
+                // compute vehicle's next position
+                CartesianPoint cartesianPoint = CartesianPoint.xyz(moveRequest.getLocX(), moveRequest.getLocY(),
+                        moveRequest.getLocZ());
+                GeoPoint geoPoint = cartesianPoint.toGeo();
+
+                // generate vehicle data and send to rti
+                // TODO: set stopped() and movement()?
+                VehicleData vehicleData = new VehicleData.Builder(time, vehicleId)
+                        .stopped(false)
+                        .movement(0.0, 0.0, 0.0)
+                        .signals(getVehicleSignals(moveRequest.getSignals()))
+                        .position(geoPoint, cartesianPoint)
+                        .orientation(getVehicleSignals(moveRequest.getSignals()).isReverseDrive() ?
+                                        DriveDirection.BACKWARD : DriveDirection.FORWARD,
+                                moveRequest.getYaw(), moveRequest.getSlope())
+                        .create();
+                vehicleUpdateList.add(vehicleData);
+            }
             VehicleUpdates vehicleUpdates = new VehicleUpdates(time,
                     Lists.newArrayList(),
                     vehicleUpdateList,
@@ -361,6 +362,30 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             log.error("Could not update Carla vehicle (IllegalValueException)");
             throw new InternalFederateException(e);
         }
+    }
+
+    private VehicleSignals getVehicleSignals(int signals) {
+        boolean blinkerLeft = false;
+        boolean blinkerRight = false;
+        boolean blinkerEmergency = false;
+        boolean brakeLight = false;
+        boolean reverseDrive = false;
+        if (((signals >> VEH_SIGNAL_BLINKER_RIGHT) & 1) == 1) {
+            blinkerRight = true;
+        }
+        if (((signals >> VEH_SIGNAL_BLINKER_LEFT) & 1) == 1) {
+            blinkerLeft = true;
+        }
+        if (((signals >> VEH_SIGNAL_BLINKER_EMERGENCY) & 1) == 1) {
+            blinkerEmergency = true;
+        }
+        if (((signals >> VEH_SIGNAL_BRAKELIGHT) & 1) == 1) {
+            brakeLight = true;
+        }
+        if (((signals >> VEH_SIGNAL_BACKDRIVE) & 1) == 1) {
+            reverseDrive = true;
+        }
+        return new VehicleSignals(blinkerLeft, blinkerRight, blinkerEmergency, brakeLight, reverseDrive);
     }
 
     @Override
