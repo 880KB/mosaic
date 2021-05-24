@@ -18,6 +18,7 @@ import com.google.common.collect.Lists;
 import io.grpc.Channel;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import org.eclipse.mosaic.fed.carla.grpc.DestroyRequest;
 import org.eclipse.mosaic.fed.carla.grpc.MoveRequest;
 import org.eclipse.mosaic.fed.carla.grpc.SpawnRequest;
 import org.eclipse.mosaic.fed.carla.grpc.StepResult;
@@ -250,9 +251,9 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 spawnCarlaVehicles(carlaStepResult.getAddActorsList(), time);
             }
 
-            // update Carla controlled vehicles
+            // update Carla controlled vehicles (includes removed vehicles)
             if (carlaStepResult.getMoveActorsList().size() > 0) {
-                updateCarlaVehicles(carlaStepResult.getMoveActorsList(), time);
+                updateCarlaVehicles(carlaStepResult.getMoveActorsList(), carlaStepResult.getRemoveActorsList(), time);
             }
 
             rti.requestAdvanceTime(this.nextTimeStep, 0, (byte) 2);
@@ -323,11 +324,14 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     /**
      * Updates vehicles that are controlled by Carla.
      * @param moveRequests List of move requests for Carla controlled vehicles
+     * @param destroyRequests List of destroy requests for Carla controlled vehicles
      * @param time Time of next simulation step
      * @throws InternalFederateException
      */
-    private void updateCarlaVehicles(List<MoveRequest> moveRequests, long time) throws InternalFederateException {
+    private void updateCarlaVehicles(List<MoveRequest> moveRequests, List<DestroyRequest> destroyRequests,
+                                     long time) throws InternalFederateException {
         try {
+            // update vehicles
             List<VehicleData> vehicleUpdateList = new ArrayList<>();
             for (MoveRequest moveRequest : moveRequests) {
                 String vehicleId = moveRequest.getActorId();
@@ -350,10 +354,18 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                         .create();
                 vehicleUpdateList.add(vehicleData);
             }
+
+            // remove vehicles
+            List<String> vehicleRemovedList = new ArrayList<>();
+            for (DestroyRequest destroyRequest : destroyRequests) {
+                vehicleRemovedList.add(destroyRequest.getActorId());
+            }
+
+            // send updated and destroyed vehicles to rti
             VehicleUpdates vehicleUpdates = new VehicleUpdates(time,
                     Lists.newArrayList(),
                     vehicleUpdateList,
-                    Lists.newArrayList());
+                    vehicleRemovedList);
             rti.triggerInteraction(vehicleUpdates);
 
         } catch (InternalFederateException e) {
