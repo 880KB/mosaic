@@ -17,6 +17,10 @@ service CarlaLinkService {
   rpc RemoveVehicle (Vehicle) returns (Empty) {}
   rpc UpdateVehicle (Vehicle) returns (Empty) {}
   rpc SimulationStep (Step) returns (StepResult) {}
+
+  rpc GetTrafficLight (LandmarkRequest) returns (TrafficLight) {}
+  rpc GetTrafficLightIDList (Empty) returns (TrafficLights) {}
+  rpc UpdateTrafficLight (TrafficLight) returns (Empty) {}
 }
 
 message Step {
@@ -27,6 +31,7 @@ message StepResult {
     repeated SpawnRequest add_actors = 1;
     repeated DestroyRequest remove_actors = 2;
     repeated MoveRequest move_actors = 3;
+    repeated TrafficLight traffic_light_updates = 4;
 }
 
 message ActorRequest {
@@ -95,4 +100,17 @@ message ArrivedActors {
 
 message Empty {
 
+}
+
+message LandmarkRequest {
+    string landmark_id = 1;
+}
+
+message TrafficLight {
+    string landmark_id = 1;
+    string state = 2;
+}
+
+message TrafficLights {
+  repeated TrafficLight traffic_lights = 1;
 }
