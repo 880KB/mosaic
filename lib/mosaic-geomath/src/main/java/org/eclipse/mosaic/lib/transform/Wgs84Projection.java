@@ -211,8 +211,6 @@ public class Wgs84Projection extends GeoProjection {
                 + (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A * A * A * A * A / 720));
         if (geoPoint.getLatitude() < 0) {
             resultNorthing += 10000000.0; //10000000 meter offset for southern hemisphere
-        } else {
-            resultNorthing += 10000000.0; //10000000 meter offset for southern hemisphere
         }
         final UtmZone zone = UtmZone.from(zoneNumber, UtmZone.getLetter(zoneNumber, geoPoint.getLatitude()));
         return result.set(resultEasting, resultNorthing, geoPoint.getAltitude(), zone);

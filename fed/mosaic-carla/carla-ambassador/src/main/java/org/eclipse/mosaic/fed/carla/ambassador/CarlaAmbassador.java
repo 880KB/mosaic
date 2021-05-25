@@ -24,6 +24,7 @@ import org.eclipse.mosaic.fed.carla.grpc.SpawnRequest;
 import org.eclipse.mosaic.fed.carla.grpc.StepResult;
 import org.eclipse.mosaic.fed.carla.grpcstubs.CarlaGrpcClient;
 import org.eclipse.mosaic.interactions.mapping.VehicleRegistration;
+import org.eclipse.mosaic.interactions.traffic.VehicleTypesInitialization;
 import org.eclipse.mosaic.interactions.traffic.VehicleUpdates;
 import org.eclipse.mosaic.interactions.vehicle.VehicleFederateAssignment;
 import org.eclipse.mosaic.interactions.vehicle.VehicleRouteRegistration;
@@ -73,6 +74,11 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      * Map of vehicles which were registered via the VehicleRegistration interaction (without Carla vehicles).
      */
     private HashMap<String, VehicleType> registeredVehicles = new HashMap<>();
+
+    /**
+     * Map of vehicle types which were registered via the VehicleTypesInitialization interaction.
+     */
+    private HashMap<String, VehicleType> registeredVehicleTypes = new HashMap<>();
 
     /**
      * defined vehicle signals bits by Sumo (https://sumo.dlr.de/docs/TraCI/Vehicle_Signalling.html)
@@ -161,6 +167,8 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 receiveInteraction((VehicleUpdates) interaction);
             } else if (interaction.getTypeId().equals(VehicleRegistration.TYPE_ID)) {
                 receiveInteraction((VehicleRegistration) interaction);
+            } else if (interaction.getTypeId().equals(VehicleTypesInitialization.TYPE_ID)) {
+                receiveInteraction((VehicleTypesInitialization) interaction);
             } else {
                 log.info("Unused interaction: " + interaction.getTypeId() + " from " + interaction.getSenderId());
             }
@@ -211,6 +219,18 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
         if (!vehicleRegistration.getSenderId().equals(getId())) {
             this.registeredVehicles.put(vehicleRegistration.getMapping().getName(),
                     vehicleRegistration.getMapping().getVehicleType());
+        }
+    }
+
+    /**
+     * Keeps track of vehicle types.
+     * @param vehicleTypesInitialization interaction
+     */
+    private synchronized void receiveInteraction(VehicleTypesInitialization vehicleTypesInitialization) {
+        if (!vehicleTypesInitialization.getSenderId().equals(getId())) {
+            for (String key : vehicleTypesInitialization.getTypes().keySet()) {
+                registeredVehicleTypes.put(key, vehicleTypesInitialization.getTypes().get(key));
+            }
         }
     }
 
@@ -277,14 +297,17 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             for (SpawnRequest spawnRequest : spawnRequests) {
                 String vehicleId = spawnRequest.getActorId();
 
-                // TODO: width and height not recognized by Traci yet
-//                log.info("* Spawn-Dimensions = " + spawnRequest.getLength() + ", " + spawnRequest.getWidth() + ", " + spawnRequest.getHeight());
-                VehicleType vehicleType = new VehicleType(spawnRequest.getTypeId(), spawnRequest.getLength(),
-                        spawnRequest.getWidth(), spawnRequest.getHeight(), null, null, null,
-                        null, null, null, null, null, null,
-                        spawnRequest.getColor(), null, null);
+                VehicleType vehicleType;
+                if (registeredVehicleTypes.containsKey(spawnRequest.getTypeId())) {
+                    vehicleType = registeredVehicleTypes.get(spawnRequest.getTypeId());
+                } else {
+                    vehicleType = new VehicleType(spawnRequest.getTypeId(), spawnRequest.getLength(),
+                            spawnRequest.getWidth(), spawnRequest.getHeight(), null, null, null,
+                            null, null, null, null, null, null,
+                            spawnRequest.getColor(), null, null);
+                }
 
-                // define vehicle route TODO: better definition of route?
+                // define vehicle route TODO: better definition of route
                 String routeId = spawnRequest.getRoute();
                 List<String> edgeList = new ArrayList<>();
                 edgeList.add("-46.0.00");
@@ -297,7 +320,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 }
 
                 // register vehicle to rti
-                // TODO: better selection of departure lane and speed?
+                // TODO: better selection of departure lane and speed
                 VehicleDeparture vehicleDeparture = new VehicleDeparture.Builder(routeId)
                         .departureLane(VehicleDeparture.LaneSelectionMode.FIRST, 1, 0)
                         .departureSpeed(0.0)
@@ -342,7 +365,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 GeoPoint geoPoint = cartesianPoint.toGeo();
 
                 // generate vehicle data and send to rti
-                // TODO: set stopped() and movement()?
+                // TODO: set movement()?
                 VehicleData vehicleData = new VehicleData.Builder(time, vehicleId)
                         .stopped(false)
                         .movement(0.0, 0.0, 0.0)
