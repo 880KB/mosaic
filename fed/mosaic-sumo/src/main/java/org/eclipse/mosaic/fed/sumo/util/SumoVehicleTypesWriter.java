@@ -225,6 +225,8 @@ public class SumoVehicleTypesWriter {
             attributes.put("decel", formatDoubleAttribute(vehicleTypesEntry.getValue().getDecel()));
             attributes.put("emergencyDecel", formatDoubleAttribute(vehicleTypesEntry.getValue().getEmergencyDecel()));
             attributes.put("length", formatDoubleAttribute(vehicleTypesEntry.getValue().getLength()));
+            attributes.put("width", formatDoubleAttribute(vehicleTypesEntry.getValue().getWidth()));
+            attributes.put("height", formatDoubleAttribute(vehicleTypesEntry.getValue().getHeight()));
             attributes.put("maxSpeed", formatDoubleAttribute(vehicleTypesEntry.getValue().getMaxSpeed()));
             attributes.put("minGap", formatDoubleAttribute(vehicleTypesEntry.getValue().getMinGap()));
             attributes.put("sigma", formatDoubleAttribute(vehicleTypesEntry.getValue().getSigma()));
