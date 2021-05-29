@@ -18,19 +18,18 @@ import com.google.common.collect.Lists;
 import io.grpc.Channel;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import org.eclipse.mosaic.fed.carla.grpc.DestroyRequest;
-import org.eclipse.mosaic.fed.carla.grpc.MoveRequest;
-import org.eclipse.mosaic.fed.carla.grpc.SpawnRequest;
-import org.eclipse.mosaic.fed.carla.grpc.StepResult;
+import org.eclipse.mosaic.fed.carla.grpc.*;
 import org.eclipse.mosaic.fed.carla.grpcstubs.CarlaGrpcClient;
 import org.eclipse.mosaic.interactions.mapping.VehicleRegistration;
-import org.eclipse.mosaic.interactions.traffic.VehicleTypesInitialization;
-import org.eclipse.mosaic.interactions.traffic.VehicleUpdates;
+import org.eclipse.mosaic.interactions.mapping.advanced.ScenarioTrafficLightRegistration;
+import org.eclipse.mosaic.interactions.traffic.*;
 import org.eclipse.mosaic.interactions.vehicle.VehicleFederateAssignment;
 import org.eclipse.mosaic.interactions.vehicle.VehicleRouteRegistration;
 import org.eclipse.mosaic.lib.enums.DriveDirection;
 import org.eclipse.mosaic.lib.geo.CartesianPoint;
 import org.eclipse.mosaic.lib.geo.GeoPoint;
+import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightGroupInfo;
+import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightState;
 import org.eclipse.mosaic.lib.objects.vehicle.*;
 import org.eclipse.mosaic.rti.TIME;
 import org.eclipse.mosaic.rti.api.AbstractFederateAmbassador;
@@ -39,9 +38,7 @@ import org.eclipse.mosaic.rti.api.Interaction;
 import org.eclipse.mosaic.rti.api.InternalFederateException;
 import org.eclipse.mosaic.rti.api.parameters.AmbassadorParameter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class CarlaAmbassador extends AbstractFederateAmbassador {
@@ -89,6 +86,24 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     private final int VEH_SIGNAL_BRAKELIGHT = 3;
     private final int VEH_SIGNAL_BACKDRIVE = 7;
 
+    /**
+     * Possible traffic light states.
+     */
+    TrafficLightState TL_RED = new TrafficLightState(true, false, false);
+    TrafficLightState TL_YELLOW = new TrafficLightState(false, false, true);
+    TrafficLightState TL_GREEN = new TrafficLightState(false, true, false);
+
+    /**
+     * List of all registered traffic light group IDs to the rti and the according Carla landmark ids of the traffic
+     * lights belonging to this group. (rti group ID -> Carla landmark IDs)
+     */
+    private HashMap<String, List<String>> registeredTrafficLightGroupIds = new HashMap<>();
+
+    /**
+     * Holds information about a Carla traffic light. (Carla landmark ID -> traffic light info)
+     */
+    private HashMap<String, TrafficLightInfo> carlaTrafficLightsInfo = new HashMap<>();
+
     public CarlaAmbassador(AmbassadorParameter ambassadorParameter) {
         super(ambassadorParameter);
         log.info("Carla Ambassador successful started!");
@@ -104,11 +119,6 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     @Override
     public void initialize(long startTime, long endTime) throws InternalFederateException {
         super.initialize(startTime, endTime);
-
-        // TODO: something is wrong
-        CartesianPoint cartesianPoint = CartesianPoint.xyz(513.1, 423.80, 0.0);
-        System.out.println("GEO: " + cartesianPoint.toGeo().toString());
-        System.out.println(cartesianPoint + " : " + cartesianPoint.toGeo().toCartesian().toString());
 
         nextTimeStep = startTime;
 
@@ -169,6 +179,10 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 receiveInteraction((VehicleRegistration) interaction);
             } else if (interaction.getTypeId().equals(VehicleTypesInitialization.TYPE_ID)) {
                 receiveInteraction((VehicleTypesInitialization) interaction);
+            } else if (interaction.getTypeId().equals(ScenarioTrafficLightRegistration.TYPE_ID)) {
+                receiveInteraction((ScenarioTrafficLightRegistration) interaction);
+            } else if (interaction.getTypeId().equals(TrafficLightUpdates.TYPE_ID)) {
+                receiveInteraction((TrafficLightUpdates) interaction);
             } else {
                 log.info("Unused interaction: " + interaction.getTypeId() + " from " + interaction.getSenderId());
             }
@@ -235,6 +249,55 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     }
 
     /**
+     * Keeps track of registered traffic light group IDs.
+     * @param scenarioTrafficLightRegistration interaction
+     * @throws InternalFederateException
+     */
+    private synchronized void receiveInteraction(ScenarioTrafficLightRegistration scenarioTrafficLightRegistration)
+            throws InternalFederateException{
+        if (!scenarioTrafficLightRegistration.getSenderId().equals(getId())) {
+            try {
+                for (org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightGroup trafficLightGroup : scenarioTrafficLightRegistration.getTrafficLightGroups()) {
+                    // remember registered group IDs
+                    String groupId = trafficLightGroup.getGroupId();
+                    log.info("New traffic light group ID registered: " + groupId + ". Number of signals: " + trafficLightGroup.getTrafficLights().size());
+                    if (groupId.equals("394")) {
+
+                        // TODO: read actual mapping from disk or database or ...
+                        List<String> newTrafficLightGroup = new ArrayList<>();
+                        newTrafficLightGroup.add("1621");
+                        newTrafficLightGroup.add("1618");
+                        newTrafficLightGroup.add("1619");
+                        newTrafficLightGroup.add("1620");
+                        registeredTrafficLightGroupIds.put(groupId, newTrafficLightGroup);
+                        // generate traffic light info
+                        carlaTrafficLightsInfo.put("1621", new TrafficLightInfo(0, 3));
+                        carlaTrafficLightsInfo.put("1618", new TrafficLightInfo(1, 3));
+                        carlaTrafficLightsInfo.put("1619", new TrafficLightInfo(2, 3));
+                        carlaTrafficLightsInfo.put("1620", new TrafficLightInfo(3, 3));
+
+                        // subscribe to traffic light group
+                        TrafficLightSubscription trafficLightSubscription = new TrafficLightSubscription(nextTimeStep, groupId);
+                        rti.triggerInteraction(trafficLightSubscription);
+                    }
+                }
+            } catch (IllegalValueException e) {
+                throw new InternalFederateException(e);
+            }
+            log.info("Number of registered traffic light group IDs: " + registeredTrafficLightGroupIds.size());
+        }
+    }
+
+    private synchronized void receiveInteraction(TrafficLightUpdates trafficLightUpdates) {
+        if (!trafficLightUpdates.getSenderId().equals(getId())) {
+            for (String key : trafficLightUpdates.getUpdated().keySet()) {
+                TrafficLightGroupInfo trafficLightGroupInfo = trafficLightUpdates.getUpdated().get(key);
+//                System.out.println(trafficLightGroupInfo.getCurrentState());
+            }
+        }
+    }
+
+    /**
      * Process the TimeAdvanceGrant event and sends the corresponding grpc-call to the grpc server
      * to invoke the tick command and receive carla information.
      *
@@ -276,10 +339,59 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 updateCarlaVehicles(carlaStepResult.getMoveActorsList(), carlaStepResult.getRemoveActorsList(), time);
             }
 
+            // update Carla controller traffic lights
+            if (carlaStepResult.getTrafficLightUpdatesList().size() > 0) {
+                setCarlaTrafficLightState(carlaStepResult.getTrafficLightUpdatesList());
+            }
+
             rti.requestAdvanceTime(this.nextTimeStep, 0, (byte) 2);
 
         } catch (InternalFederateException | IllegalValueException e) {
             log.error("Error during advanceTime(" + time + ")", e);
+            throw new InternalFederateException(e);
+        }
+    }
+
+    /**
+     * Sets the rti traffic light states according to the states in Carla.
+     * @param trafficLights
+     * @throws InternalFederateException
+     */
+    private void setCarlaTrafficLightState(List<TrafficLight> trafficLights) throws InternalFederateException {
+        try {
+            // process all traffic light changes
+            for (TrafficLight trafficLight : trafficLights) {
+                String carlaLandmarkId = trafficLight.getLandmarkId();
+                if (carlaTrafficLightsInfo.containsKey(carlaLandmarkId)) {
+                    switch (trafficLight.getState()) {
+                        case "r":
+                            carlaTrafficLightsInfo.get(carlaLandmarkId).setTrafficLightStates(TL_RED);
+                            break;
+                        case "G":
+                            carlaTrafficLightsInfo.get(carlaLandmarkId).setTrafficLightStates(TL_GREEN);
+                            break;
+                        case "y":
+                            carlaTrafficLightsInfo.get(carlaLandmarkId).setTrafficLightStates(TL_YELLOW);
+                            break;
+                        default:
+                            throw new InternalFederateException();
+                    }
+                }
+            }
+            // for all known rti traffic light group IDs ...
+            for (String rtiTrafficLightGroupId : registeredTrafficLightGroupIds.keySet()) {
+                List<TrafficLightState> trafficLightStates = new ArrayList<>();
+                // ... read traffic light state for each traffic light of the group
+                List<String> carlaLandmarkIdsOfGroup = registeredTrafficLightGroupIds.get(rtiTrafficLightGroupId);
+                for (String carlaLandmarkId : carlaLandmarkIdsOfGroup) {
+                    trafficLightStates.addAll(carlaTrafficLightsInfo.get(carlaLandmarkId).getTrafficLightStates());
+                }
+                // pack new traffic light state information and send to rti
+                TrafficLightStateChange trafficLightStateChange = new TrafficLightStateChange(nextTimeStep, rtiTrafficLightGroupId);
+                trafficLightStateChange.setCustomState(trafficLightStates);
+                rti.triggerInteraction(trafficLightStateChange);
+            }
+        } catch (IllegalValueException e) {
             throw new InternalFederateException(e);
         }
     }
