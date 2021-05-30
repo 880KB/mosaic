@@ -115,6 +115,44 @@ public class CarlaGrpcClient {
     }
 
     /**
+     * Translates Sumo vehicle classes (which are used by Carla) to Mosaic vehicle classes.
+     * (https://sumo.dlr.de/docs/Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#abstract_vehicle_class)
+     * @param vClass Sumo vehicle class
+     * @return Mosaic vehicle class
+     */
+    public VehicleClass getMosaicVehicleClassFromSumoVehicleClass(String vClass) {
+        switch (vClass) {
+            case "passenger":
+                return VehicleClass.Car;
+            case "delivery":
+                return VehicleClass.LightGoodsVehicle;
+            case "truck":
+                return VehicleClass.HeavyGoodsVehicle;
+            case "bus":
+                return VehicleClass.PublicTransportVehicle;
+            case"emergency":
+                return VehicleClass.EmergencyVehicle;
+            case "trailer":
+                return VehicleClass.VehicleWithTrailer;
+            case "coach":
+                return VehicleClass.MiniBus;
+            case "taxi":
+                return VehicleClass.Taxi;
+            case "evehicle":
+                return VehicleClass.ElectricVehicle;
+            case "bicycle":
+                return VehicleClass.Bicycle;
+            case "motorcycle":
+                return VehicleClass.Motorcycle;
+            case "hov":
+                return VehicleClass.HighOccupancyVehicle;
+            case "ignoring":
+            default:
+                return VehicleClass.Unknown;
+        }
+    }
+
+    /**
      * Sends car data to Carla.
      * @param data Vehicle data
      * @param vehicleType Vehicle type

@@ -26,6 +26,7 @@ import org.eclipse.mosaic.interactions.traffic.*;
 import org.eclipse.mosaic.interactions.vehicle.VehicleFederateAssignment;
 import org.eclipse.mosaic.interactions.vehicle.VehicleRouteRegistration;
 import org.eclipse.mosaic.lib.enums.DriveDirection;
+import org.eclipse.mosaic.lib.enums.VehicleClass;
 import org.eclipse.mosaic.lib.geo.CartesianPoint;
 import org.eclipse.mosaic.lib.geo.GeoPoint;
 import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightGroupInfo;
@@ -413,10 +414,11 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 if (registeredVehicleTypes.containsKey(spawnRequest.getTypeId())) {
                     vehicleType = registeredVehicleTypes.get(spawnRequest.getTypeId());
                 } else {
+                    VehicleClass vehicleClass = client.getMosaicVehicleClassFromSumoVehicleClass(spawnRequest.getClassId());
                     vehicleType = new VehicleType(spawnRequest.getTypeId(), spawnRequest.getLength(),
-                            spawnRequest.getWidth(), spawnRequest.getHeight(), null, null, null,
-                            null, null, null, null, null, null,
-                            spawnRequest.getColor(), null, null);
+                            spawnRequest.getWidth(), spawnRequest.getHeight(), null, null,
+                            vehicleClass, null, null, null, null, null,
+                            null, spawnRequest.getColor(), null, null);
                 }
 
                 // define vehicle route TODO: better definition of route

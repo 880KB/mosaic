@@ -42,10 +42,11 @@ message SpawnRequest {
   string actor_id = 1;
   string route = 2;
   string type_id = 3;
-  string color = 4;
-  double length = 5;
-  double width = 6;
-  double height = 7;
+  string class_id = 4;
+  string color = 5;
+  double length = 6;
+  double width = 7;
+  double height = 8;
 }
 
 message DestroyRequest {
