@@ -38,7 +38,7 @@ public class CarlaGrpcClient {
     }
 
     /**
-     * defined vehicle signals bits by Sumo (https://sumo.dlr.de/docs/TraCI/Vehicle_Signalling.html)
+     * defined vehicle signal bits by Sumo (https://sumo.dlr.de/docs/TraCI/Vehicle_Signalling.html)
      */
     private final int VEH_SIGNAL_BLINKER_RIGHT = 0;
     private final int VEH_SIGNAL_BLINKER_LEFT = 1;
@@ -187,4 +187,11 @@ public class CarlaGrpcClient {
         blockingStub.removeVehicle(request);
     }
 
+    public void updateTrafficLight(String landmarkId, String state) {
+        TrafficLight trafficLight = TrafficLight.newBuilder()
+                .setLandmarkId(landmarkId)
+                .setState(state)
+                .build();
+        blockingStub.updateTrafficLight(trafficLight);
+    }
 }

@@ -1,4 +1,5 @@
 {
-    "sumoConfigurationFile": "Town04.sumocfg",
-    "updateInterval": 100
+    "updateInterval": 100,
+    "tlsManager": "mosaic",
+    "tlsStrictConversion": true
 }
