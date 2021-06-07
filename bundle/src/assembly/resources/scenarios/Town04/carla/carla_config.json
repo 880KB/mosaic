@@ -1,5 +1,6 @@
 {
     "updateInterval": 100,
     "tlsManager": "mosaic",
-    "tlsStrictConversion": true
+    "tlsStrictConversion": true,
+    "pathToCarlaCoSimulation": "C:\\DCAITI\\Carla\\Co-Simulation\\Mosaic"
 }

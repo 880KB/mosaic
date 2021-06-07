@@ -325,6 +325,14 @@ JSch (0.1.51)
  * Source: https://git.jcraft.com/jsch
 
 
+JSON.simple (1.1.1)
+
+ * License: The Apache Software License, Version 2.0
+ * Maven artifact: `com.googlecode.json-simple:json-simple:1.1.1`
+ * Project: http://code.google.com/p/json-simple/
+ * Source: https://json-simple.googlecode.com/svn/trunk/
+
+
 JSR 374 (JSON Processing) API (1.1.5)
 
  * License: Eclipse Public License 2.0, GNU General Public License, version 2 with the GNU Classpath Exception

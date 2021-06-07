@@ -14,18 +14,21 @@
  */
 package org.eclipse.mosaic.fed.carla.ambassador;
 
+import org.eclipse.mosaic.lib.geo.CartesianPoint;
 import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightState;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TrafficLightPole {
-
-    private final int poleIndex;
-    private final int numberOfStates;
-    private final boolean strictConversion;
+    private String id;
+    private int numberOfStates = 0;
+    private final CartesianPoint location;
+    private boolean strictConversion;
+    private List<String> groupMembers;
     private List<TrafficLightState> mosaicStates = new ArrayList<>();
     private String carlaState;
+    private boolean matched = false;
 
     /**
      * Possible Carla traffic light states.
@@ -55,8 +58,10 @@ public class TrafficLightPole {
 
     /**
      * Constructor. Traffic light pole is initialized with "off" state.
-     * @param poleIndex Index of the pole.
-     * @param numberOfStates Number of traffic light states the pole has.
+     * @param id Carla landmark ID of the traffic light pole.
+     * @param location Location of the traffic light pole.
+     * @param groupMembers Carla landmark IDs of all traffic lights that belong to this traffic light group (including
+     *                     own landmark ID).
      * @param strictConversion Translation from the more complex Mosaic traffic light state representation can be
      *                         strict or not strict:<br>
      *                         Strict conversion: if any state is red or red + yellow -> red; if no state is red but at
@@ -65,9 +70,10 @@ public class TrafficLightPole {
      *                         is green but at least one is yellow -> yellow; if all states are red or red + yellow ->
      *                         red.
      */
-    public TrafficLightPole(int poleIndex, int numberOfStates, boolean strictConversion) {
-        this.poleIndex = poleIndex;
-        this.numberOfStates = numberOfStates;
+    public TrafficLightPole(String id, CartesianPoint location, List<String> groupMembers, boolean strictConversion) {
+        this.id = id;
+        this.location = location;
+        this.groupMembers = groupMembers;
         setMosaicStates(TL_MOSAIC_OFF);
         carlaState = TL_CARLA_OFF;
         this.strictConversion = strictConversion;
@@ -144,6 +150,12 @@ public class TrafficLightPole {
         }
     }
 
+    @Override
+    public String toString() {
+        return "TrafficLightPole with ID=" + id + ": posX=" + location.getX() + " posY=" + location.getY() +
+                " members=" + groupMembers;
+    }
+
     public List<TrafficLightState> getMosaicStates() {
         return mosaicStates;
     }
@@ -152,11 +164,35 @@ public class TrafficLightPole {
         return carlaState;
     }
 
-    public int getPoleIndex() {
-        return poleIndex;
-    }
-
     public int getNumberOfStates() {
         return numberOfStates;
+    }
+
+    public void setNumberOfStates(int numberOfStates) {
+        this.numberOfStates = numberOfStates;
+    }
+
+    public CartesianPoint getLocation() {
+        return location;
+    }
+
+    public List<String> getGroupMembers() {
+        return groupMembers;
+    }
+
+    public void setGroupMembers(List<String> groupMembers) {
+        this.groupMembers = groupMembers;
+    }
+
+    public int getNumberOfGroupMembers() {
+        return groupMembers.size();
+    }
+
+    public boolean isMatched() {
+        return matched;
+    }
+
+    public void setMatched(boolean matched) {
+        this.matched = matched;
     }
 }

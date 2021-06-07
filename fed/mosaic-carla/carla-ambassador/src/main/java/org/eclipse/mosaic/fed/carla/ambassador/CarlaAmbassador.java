@@ -30,6 +30,8 @@ import org.eclipse.mosaic.lib.enums.DriveDirection;
 import org.eclipse.mosaic.lib.enums.VehicleClass;
 import org.eclipse.mosaic.lib.geo.CartesianPoint;
 import org.eclipse.mosaic.lib.geo.GeoPoint;
+import org.eclipse.mosaic.lib.geo.MutableCartesianPoint;
+import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightGroup;
 import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightState;
 import org.eclipse.mosaic.lib.objects.vehicle.*;
 import org.eclipse.mosaic.lib.util.objects.ObjectInstantiation;
@@ -39,7 +41,13 @@ import org.eclipse.mosaic.rti.api.IllegalValueException;
 import org.eclipse.mosaic.rti.api.Interaction;
 import org.eclipse.mosaic.rti.api.InternalFederateException;
 import org.eclipse.mosaic.rti.api.parameters.AmbassadorParameter;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -106,6 +114,12 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     private HashMap<String, TrafficLightPole> carlaTrafficLightsInfo = new HashMap<>();
 
     /**
+     * Carla traffic lights of one group are only matched to a Mosaic traffic light group ID if at least one is at most
+     * this distance away.
+     */
+    private final double MAX_DISTANCE_TRAFFIC_LIGHT_MATCH = 15.0;
+
+    /**
      * Carla vehicles will spawn on this edge (and are moved to their actual position after the first position update).
      */
     private String carlaSpawnEdge = null;
@@ -119,6 +133,8 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
         } catch (InstantiationException e) {
             log.error("Configuration object could not be instantiated: ", e);
         }
+
+        loadCarlaTrafficLightGroups();
 
         log.info("Carla Ambassador successful started!");
     }
@@ -150,11 +166,67 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      * Creates the grpc-client and tries connects it with the grpc-carla-server
      */
     private void connectToGrpc() {
-        log.warn("Trying to connect tp GRPC Server (Carla)");
-        System.out.println("Trying to connect to GRPC Server (Carla)");
+        log.info("Trying to connect tp GRPC Server (Carla)");
+        // System.out.println("Trying to connect to GRPC Server (Carla)");
         String target = "localhost:50051";
         channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
         client = new CarlaGrpcClient(channel);
+    }
+
+    /**
+     * Loads all Carla landmark IDs from disk (previously written by Carla Mosaic Co-Simulation).
+     */
+    private void loadCarlaTrafficLightGroups() {
+        JSONParser parser = new JSONParser();
+        String filename = carlaConfig.pathToCarlaCoSimulation + "\\data\\traffic_light_mapping.json";
+        try {
+            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filename));
+            for (Object trafficLightGroupId : jsonObject.keySet()) {
+                JSONArray carlaLandmarks = (JSONArray) jsonObject.get(trafficLightGroupId);
+                List<String> groupMembers = new ArrayList<>();
+                // for each pole
+                for (Object carlaLandmarkIndex : carlaLandmarks) {
+                    JSONObject trafficLightPole = (JSONObject) carlaLandmarkIndex;
+                    for (Object trafficLightData : trafficLightPole.keySet()) {
+                        JSONArray data = (JSONArray) trafficLightPole.get(trafficLightData);
+                        // iterate through landmark data
+                        String id = null;
+                        double posX = 0;
+                        double posY = 0;
+                        for (Object d : data) {
+                            JSONObject info = (JSONObject) d;
+                            if (info.get("landmark_id") != null) {
+                                id = (String) info.get("landmark_id");
+                            }
+                            if (info.get("pos_x") != null) {
+                                posX = Double.parseDouble((String) info.get("pos_x"));
+                            }
+                            if (info.get("pos_y") != null) {
+                                posY = -Double.parseDouble((String) info.get("pos_y"));
+                            }
+                        }
+                        // write traffic light information
+                        groupMembers.add(id);
+                        CartesianPoint pos = new MutableCartesianPoint(posX, posY, 0);
+                        carlaTrafficLightsInfo.put(id, new TrafficLightPole(id, pos, groupMembers,
+                                carlaConfig.tlsStrictConversion));
+                    }
+                }
+                // update group members
+                for (String carlaLandmarkId : groupMembers) {
+                    carlaTrafficLightsInfo.get(carlaLandmarkId).setGroupMembers(groupMembers);
+                }
+            }
+        } catch (IOException e) {
+            log.error("Could not open Carla landmark IDs file. Traffic light synchronization will not work.");
+        } catch (ParseException e) {
+            log.error("Could not parse Carla landmark IDs file. Traffic light synchronization will not work.");
+        }
+        if (log.isDebugEnabled()) {
+            for (String s : carlaTrafficLightsInfo.keySet()) {
+                log.debug(carlaTrafficLightsInfo.get(s).toString());
+            }
+        }
     }
 
     /**
@@ -283,46 +355,97 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     }
 
     /**
-     * Keeps track of registered traffic light group IDs.
+     * Matches Mosaic traffic light group IDs and Carla landmark IDs (that are used for traffic lights).
      * @param scenarioTrafficLightRegistration interaction
      * @throws InternalFederateException
      */
     private synchronized void receiveInteraction(ScenarioTrafficLightRegistration scenarioTrafficLightRegistration)
             throws InternalFederateException{
         if (!scenarioTrafficLightRegistration.getSenderId().equals(getId())) {
+            int unmatchedMosaicGroupIds = 0;
             try {
-                for (org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightGroup trafficLightGroup : scenarioTrafficLightRegistration.getTrafficLightGroups()) {
-                    // remember registered group IDs
-                    String groupId = trafficLightGroup.getGroupId();
-                    log.info("New traffic light group ID registered: " + groupId + ". Number of signals: " + trafficLightGroup.getTrafficLights().size());
-                    if (groupId.equals("394")) {
-                        // TODO: read actual mapping from helper ...
-                        // build new traffic light group
-                        List<String> newTrafficLightGroup = new ArrayList<>();
-                        newTrafficLightGroup.add("1621");
-                        newTrafficLightGroup.add("1618");
-                        newTrafficLightGroup.add("1619");
-                        newTrafficLightGroup.add("1620");
-                        registeredTrafficLightGroupIds.put(groupId, newTrafficLightGroup);
-                        // build traffic light poles for the group
-                        carlaTrafficLightsInfo.put("1621", new TrafficLightPole(0, 3,
-                                carlaConfig.tlsStrictConversion));
-                        carlaTrafficLightsInfo.put("1618", new TrafficLightPole(1, 3,
-                                carlaConfig.tlsStrictConversion));
-                        carlaTrafficLightsInfo.put("1619", new TrafficLightPole(2, 3,
-                                carlaConfig.tlsStrictConversion));
-                        carlaTrafficLightsInfo.put("1620", new TrafficLightPole(3, 3,
-                                carlaConfig.tlsStrictConversion));
-                        // subscribe to traffic light group
-                        TrafficLightSubscription trafficLightSubscription = new TrafficLightSubscription(nextTimeStep,
-                                groupId);
-                        rti.triggerInteraction(trafficLightSubscription);
+                for (TrafficLightGroup trafficLightGroup : scenarioTrafficLightRegistration.getTrafficLightGroups()) {
+                    String mosaicGroupId = trafficLightGroup.getGroupId();
+
+                    // compute closest Carla landmark ID
+                    String closestCarlaLandmarkId = getClosestCarlaLandmarkId(trafficLightGroup.getFirstPosition()
+                            .toCartesian());
+                    if (closestCarlaLandmarkId == null) {
+                        log.debug("Could not match Mosaic traffic light group ID " + mosaicGroupId +
+                                " with any known Carla landmark ID. Ignoring Mosaic group ID.");
+                        unmatchedMosaicGroupIds += 1;
+                        continue;
                     }
+                    List<String> carlaGroupMembers = carlaTrafficLightsInfo.get(closestCarlaLandmarkId).getGroupMembers();
+
+                    // compute number of poles in Mosaic and Carla groups
+                    int mosaicPoles = getNumberOfTrafficLightPolesInMosaicGroup(trafficLightGroup);
+                    int carlaPoles = carlaGroupMembers.size();
+                    if (mosaicPoles != carlaPoles) {
+                        log.debug("Number of traffic light poles in Mosaic (" + mosaicPoles + ") and Carla (" +
+                                carlaPoles + ") does not match. Ignoring Mosaic group ID " + mosaicGroupId + ".");
+                        unmatchedMosaicGroupIds += 1;
+                        continue;
+                    }
+
+                    // check if Carla landmark IDs have not been matched to another Mosaic traffic light group yet
+                    boolean assignable = true;
+                    for (String carlaLandmarkId : carlaGroupMembers) {
+                        if (carlaTrafficLightsInfo.get(carlaLandmarkId).isMatched()) {
+                            assignable = false;
+                            break;
+                        }
+                    }
+                    if (!assignable) {
+                        log.debug("Carla landmark IDs " + carlaGroupMembers +
+                                " have already been matched to another Mosaic traffic light group ID." +
+                                " Ignoring Mosaic group ID " + mosaicGroupId + ".");
+                        unmatchedMosaicGroupIds += 1;
+                        continue;
+                    }
+
+                    // matching successful
+                    // sort members clockwise around Mosaic traffic light group location (according to Sumo logic:
+                    // https://sumo.dlr.de/docs/Simulation/Traffic_Lights.html#default_link_indices)
+                    carlaGroupMembers.sort(new ClockwiseComparator(trafficLightGroup.getFirstPosition().toCartesian()));
+                    log.debug("Matching Mosaic traffic light ID " + mosaicGroupId + " with Carla Landmark IDs " +
+                            carlaGroupMembers + ".");
+
+                    // save matching
+                    registeredTrafficLightGroupIds.put(mosaicGroupId, carlaGroupMembers);
+                    for (String carlaLandmarkId : carlaGroupMembers) {
+                        carlaTrafficLightsInfo.get(carlaLandmarkId).setGroupMembers(carlaGroupMembers);
+                        carlaTrafficLightsInfo.get(carlaLandmarkId).setMatched(true);
+                        // compute number of states of traffic light pole
+                        int numberOfStates = getNumberOfStatesOfTrafficLightPole(carlaLandmarkId, trafficLightGroup);
+                        carlaTrafficLightsInfo.get(carlaLandmarkId).setNumberOfStates(numberOfStates);
+                    }
+
+                    // subscribe to traffic light group
+                    TrafficLightSubscription trafficLightSubscription = new TrafficLightSubscription(nextTimeStep,
+                            mosaicGroupId);
+                    rti.triggerInteraction(trafficLightSubscription);
                 }
             } catch (IllegalValueException e) {
                 throw new InternalFederateException(e);
             }
-            log.info("Number of registered traffic light group IDs: " + registeredTrafficLightGroupIds.size());
+
+            // log output
+            int unmatchedCarlaLandmarkIds = 0;
+            for (String carlaLandmarkId : carlaTrafficLightsInfo.keySet()) {
+                if (!carlaTrafficLightsInfo.get(carlaLandmarkId).isMatched()) {
+                    unmatchedCarlaLandmarkIds += 1;
+                }
+            }
+            if (unmatchedMosaicGroupIds > 0) {
+                log.warn("Unmatched Mosaic traffic light group IDs: " + unmatchedMosaicGroupIds);
+            }
+            if (unmatchedCarlaLandmarkIds > 0) {
+                log.warn("Unmatched Carla landmark IDs: " + unmatchedCarlaLandmarkIds);
+            }
+            if (unmatchedMosaicGroupIds == 0 && unmatchedCarlaLandmarkIds == 0) {
+                log.info("All known traffic lights matched between Carla and Mosaic.");
+            }
         }
     }
 
@@ -406,6 +529,108 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
         } catch (InternalFederateException | IllegalValueException e) {
             log.error("Error during advanceTime(" + time + ")", e);
             throw new InternalFederateException(e);
+        }
+    }
+
+    /**
+     * Computes the number of states the given Carla traffic light controls based on the given Mosaic traffic light group.
+     * @param carlaLandmarkId Carla landmark ID
+     * @param trafficLightGroup Mosaic traffic light group
+     * @return
+     */
+    private int getNumberOfStatesOfTrafficLightPole(String carlaLandmarkId, TrafficLightGroup trafficLightGroup) {
+        List<String> groupMembers = carlaTrafficLightsInfo.get(carlaLandmarkId).getGroupMembers();
+        int indexOfCarlaLandmark = groupMembers.indexOf(carlaLandmarkId);
+        String currentIncomingEdge = "";
+        int countedIncomingEdges = 0;
+        int numberOfStates = 0;
+        for (org.eclipse.mosaic.lib.objects.trafficlight.TrafficLight trafficLight : trafficLightGroup.getTrafficLights()) {
+            // new incoming edge (aka new traffic pole)?
+            String incomingLane = trafficLight.getIncomingLane();
+            String incomingEdge = incomingLane.substring(0, incomingLane.lastIndexOf('_'));
+            if (!incomingEdge.equals(currentIncomingEdge)) {
+                currentIncomingEdge = incomingEdge;
+                countedIncomingEdges += 1;
+            }
+            // count if index of pole + 1 matches number of counted incoming lanes
+            if (countedIncomingEdges == indexOfCarlaLandmark + 1) {
+                numberOfStates += 1;
+            }
+        }
+        return numberOfStates;
+    }
+
+    /**
+     * Computes the number of traffic poles in a Mosaic traffic lights group aka the number of incoming edges (not
+     * lanes)
+     * @param trafficLightGroup Mosaic traffic light group
+     * @return number of traffic light poles
+     */
+    private int getNumberOfTrafficLightPolesInMosaicGroup(TrafficLightGroup trafficLightGroup) {
+        Set<String> incomingEdges = new HashSet<>();
+        for (org.eclipse.mosaic.lib.objects.trafficlight.TrafficLight tl : trafficLightGroup.getTrafficLights()) {
+            String incomingLane = tl.getIncomingLane();
+            incomingEdges.add(incomingLane.substring(0, incomingLane.lastIndexOf('_')));
+        }
+        return incomingEdges.size();
+    }
+
+    /**
+     * Computes the closest Carla traffic light to a given {@link CartesianPoint} location.
+     * @param location Position to compute the closest Carla traffic light to
+     * @return Carla landmark Id of closest traffic light
+     */
+    private String getClosestCarlaLandmarkId(CartesianPoint location) {
+        String closestCarlaLandmarkId = null;
+        double minDistance = Double.POSITIVE_INFINITY;
+        for (String carlaLandmarkId : carlaTrafficLightsInfo.keySet()) {
+            if (location.distanceTo(carlaTrafficLightsInfo.get(carlaLandmarkId).getLocation()) < minDistance) {
+                minDistance = location.distanceTo(carlaTrafficLightsInfo.get(carlaLandmarkId).getLocation());
+                closestCarlaLandmarkId = carlaLandmarkId;
+            }
+        }
+        if (minDistance <= MAX_DISTANCE_TRAFFIC_LIGHT_MATCH) {
+            return closestCarlaLandmarkId;
+        } else {
+            log.debug("Distance exceeded during matching for " + location + ": " + minDistance + " > " +
+                    MAX_DISTANCE_TRAFFIC_LIGHT_MATCH);
+            return null;
+        }
+    }
+
+    /**
+     * Comparator for clockwise sorting of Carla landmark IDs. If the sorting does not fit to a specific scenario, e.g.,
+     * because of European traffic light systems, this would be the place to change it.
+     */
+    class ClockwiseComparator implements Comparator<String> {
+        private final CartesianPoint r;
+        public ClockwiseComparator(CartesianPoint referencePoint) {
+            r = referencePoint;
+        }
+        @Override
+        public int compare(String o1, String o2) {
+            double o1X = carlaTrafficLightsInfo.get(o1).getLocation().getX() - r.getX();
+            double o1Y = carlaTrafficLightsInfo.get(o1).getLocation().getY() - r.getY();
+            double o2X = carlaTrafficLightsInfo.get(o2).getLocation().getX() - r.getX();
+            double o2Y = carlaTrafficLightsInfo.get(o2).getLocation().getY() - r.getY();
+            // source: https://stackoverflow.com/questions/6989100/sort-points-in-clockwise-order
+            if (o1X >= 0 && o2X < 0) {
+                return 1;
+            }
+            if (o1X < 0 && o2X >= 0) {
+                return -1;
+            }
+            if (o1X == 0 && o2X == 0) {
+                return 0;
+            }
+            double crossProdukt = o1X * o2Y - o2X * o1Y;
+            if (crossProdukt < 0) {
+                return -1;
+            }
+            if (crossProdukt > 0) {
+                return 1;
+            }
+            return 0;
         }
     }
 

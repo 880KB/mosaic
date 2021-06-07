@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 public class CCarla implements Serializable {
 
-    private static final long serialVersionUID = 2200768265241363338L;
+    private static final long serialVersionUID = 6086738641932706254L;
 
     /**
      * The Interval after which positions are published.
@@ -33,14 +33,20 @@ public class CCarla implements Serializable {
     public Long updateInterval = 1000L;
 
     /**
-     *
+     * Defines who the traffic light manager is. Possible values: "mosaic" or "carla".
      */
     public String tlsManager = "mosaic";
 
     /**
-     *
+     * Toggles the translation from the more complex Mosaic traffic light state representation.
+     * See {@link org.eclipse.mosaic.fed.carla.ambassador.TrafficLightPole}
      */
     public boolean tlsStrictConversion = true;
+
+    /**
+     * Path to the Carla co-simulation folder.
+     */
+    public String pathToCarlaCoSimulation = "";
 
     public boolean carlaIsTlsManager() {
         return tlsManager.equals("carla");
