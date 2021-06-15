@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrafficLightPole {
-    private String id;
+    private final String id;
     private int numberOfStates = 0;
     private final CartesianPoint location;
-    private boolean strictConversion;
+    private final boolean strictConversion;
     private List<String> groupMembers;
     private List<TrafficLightState> mosaicStates = new ArrayList<>();
     private String carlaState;

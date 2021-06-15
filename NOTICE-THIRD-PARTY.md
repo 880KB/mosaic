@@ -373,6 +373,14 @@ perfmark:perfmark-api (0.19.0)
  * Source: https://github.com/perfmark/perfmark
 
 
+phabmacs-api (3.0.8-SNAPSHOT)
+
+ * License: Unknown license
+ * Maven artifact: `com.dcaiti.phabmacs-dry:phabmacs-api:3.0.8-SNAPSHOT`
+ * Project: not available
+ * Source: not declared
+
+
 proto-google-common-protos (1.17.0)
 
  * License: Apache-2.0

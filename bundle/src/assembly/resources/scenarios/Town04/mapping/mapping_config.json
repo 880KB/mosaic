@@ -28,7 +28,8 @@
       ],
       "deterministic": true,
       "pos": 0,
-      "route": "0"
+      "route": "0",
+      "applications": [ "com.dcaiti.mosaic.app.example.lidar.LidarVisualizationApp" ]
     },
     {
       "startingTime": 1.0,
