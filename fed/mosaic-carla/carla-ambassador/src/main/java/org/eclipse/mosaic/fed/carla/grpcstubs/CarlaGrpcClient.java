@@ -198,19 +198,19 @@ public class CarlaGrpcClient {
 
     public String spawnSensor(String vehicleId, VehicleCarlaSensorActivation.SensorTypes sensorType) {
         Sensor sensor = Sensor.newBuilder()
-                .setId(vehicleId)
+                .setAttached(vehicleId)
                 .setTypeId(sensorType.toString())
                 .build();
         Sensor response = blockingStub.addSensor(sensor);
         // return Carla ID of spawned sensor
-        String carlaSensorId = null;
-        if (response.getAttributesList().size() > 0) {
-            for (Attribute attribute : response.getAttributesList()) {
-                if (attribute.getName().equals("sensor_id")) {
-                    carlaSensorId = attribute.getValue();
-                }
-            }
-        }
-         return carlaSensorId;
+//        String carlaSensorId = response.getId();
+//        if (response.getAttributesList().size() > 0) {
+//            for (Attribute attribute : response.getAttributesList()) {
+//                if (attribute.getName().equals("sensor_id")) {
+//                    carlaSensorId = attribute.getValue();
+//                }
+//            }
+//        }
+         return response.getId();
     }
 }

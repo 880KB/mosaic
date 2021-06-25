@@ -123,7 +123,10 @@ message TrafficLights {
 message Sensor {
   string id = 1;
   string type_id = 2;
-  repeated Attribute attributes = 3;
+  Location location = 3;
+  Rotation rotation = 4;
+  string attached = 5;
+  repeated Attribute attributes = 6;
 }
 
 message Attribute {
