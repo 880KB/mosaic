@@ -23,13 +23,13 @@
           "color": "125,125,0,0",
           "length": 5.3691930770874,
           "width": 2.0527365207672,
-          "height": 1.41509950160980
+          "height": 1.41509950160980,
+          "applications": [ "org.eclipse.mosaic.app.carla.CarlaSensorApp"]
         }
       ],
       "deterministic": true,
       "pos": 0,
-      "route": "0",
-      "applications": [ "com.dcaiti.mosaic.app.example.lidar.LidarVisualizationApp" ]
+      "route": "0"
     },
     {
       "startingTime": 1.0,
@@ -41,7 +41,8 @@
       "departSpeedMode": "MAXIMUM",
       "types": [
         {
-          "name": "vehicle.bmw.isetta"
+          "name": "vehicle.bmw.isetta",
+          "applications": [ "org.eclipse.mosaic.app.carla.CarlaSensorApp"]
         }
       ],
       "deterministic": true,

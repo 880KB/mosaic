@@ -17,6 +17,7 @@ package org.eclipse.mosaic.fed.carla.grpcstubs;
 
 import io.grpc.Channel;
 import org.eclipse.mosaic.fed.carla.grpc.*;
+import org.eclipse.mosaic.interactions.vehicle.VehicleCarlaSensorActivation;
 import org.eclipse.mosaic.lib.enums.VehicleClass;
 import org.eclipse.mosaic.lib.objects.vehicle.VehicleData;
 import org.eclipse.mosaic.lib.objects.vehicle.VehicleSignals;
@@ -193,5 +194,23 @@ public class CarlaGrpcClient {
                 .setState(state)
                 .build();
         blockingStub.updateTrafficLight(trafficLight);
+    }
+
+    public String spawnSensor(String vehicleId, VehicleCarlaSensorActivation.SensorTypes sensorType) {
+        Sensor sensor = Sensor.newBuilder()
+                .setId(vehicleId)
+                .setTypeId(sensorType.toString())
+                .build();
+        Sensor response = blockingStub.addSensor(sensor);
+        // return Carla ID of spawned sensor
+        String carlaSensorId = null;
+        if (response.getAttributesList().size() > 0) {
+            for (Attribute attribute : response.getAttributesList()) {
+                if (attribute.getName().equals("sensor_id")) {
+                    carlaSensorId = attribute.getValue();
+                }
+            }
+        }
+         return carlaSensorId;
     }
 }

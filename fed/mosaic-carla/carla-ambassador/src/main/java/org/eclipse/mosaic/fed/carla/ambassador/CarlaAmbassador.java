@@ -14,6 +14,7 @@
  */
 package org.eclipse.mosaic.fed.carla.ambassador;
 
+import com.dcaiti.phabmacs.api.sim.sensor.LidarFrame;
 import com.google.common.collect.Lists;
 import io.grpc.Channel;
 import io.grpc.ManagedChannel;
@@ -24,6 +25,7 @@ import org.eclipse.mosaic.fed.carla.grpcstubs.CarlaGrpcClient;
 import org.eclipse.mosaic.interactions.mapping.VehicleRegistration;
 import org.eclipse.mosaic.interactions.mapping.advanced.ScenarioTrafficLightRegistration;
 import org.eclipse.mosaic.interactions.traffic.*;
+import org.eclipse.mosaic.interactions.vehicle.VehicleCarlaSensorActivation;
 import org.eclipse.mosaic.interactions.vehicle.VehicleFederateAssignment;
 import org.eclipse.mosaic.interactions.vehicle.VehicleRouteRegistration;
 import org.eclipse.mosaic.lib.enums.DriveDirection;
@@ -31,6 +33,8 @@ import org.eclipse.mosaic.lib.enums.VehicleClass;
 import org.eclipse.mosaic.lib.geo.CartesianPoint;
 import org.eclipse.mosaic.lib.geo.GeoPoint;
 import org.eclipse.mosaic.lib.geo.MutableCartesianPoint;
+import org.eclipse.mosaic.lib.math.Matrix3d;
+import org.eclipse.mosaic.lib.math.Vector3d;
 import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightGroup;
 import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightState;
 import org.eclipse.mosaic.lib.objects.vehicle.*;
@@ -120,6 +124,12 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     private final double MAX_DISTANCE_TRAFFIC_LIGHT_MATCH = 15.0;
 
     /**
+     * List of all spawned Carla sensors: key = Carla sensor ID, value = Mosaic vehicle ID.
+     * Is used to match sent Carla sensor data to Mosaic vehicles.
+     */
+    private HashMap<String, String> registeredCarlaSensors = new HashMap<>();
+
+    /**
      * Carla vehicles will spawn on this edge (and are moved to their actual position after the first position update).
      */
     private String carlaSpawnEdge = null;
@@ -167,7 +177,6 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private void connectToGrpc() {
         log.info("Trying to connect tp GRPC Server (Carla)");
-        // System.out.println("Trying to connect to GRPC Server (Carla)");
         String target = "localhost:50051";
         channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
         client = new CarlaGrpcClient(channel);
@@ -271,9 +280,29 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 receiveInteraction((ScenarioTrafficLightRegistration) interaction);
             } else if (interaction.getTypeId().equals(TrafficLightUpdates.TYPE_ID)) {
                 receiveInteraction((TrafficLightUpdates) interaction);
+            } else if (interaction.getTypeId().equals(VehicleCarlaSensorActivation.TYPE_ID)) {
+                receiveInteraction((VehicleCarlaSensorActivation) interaction);
             } else {
                 log.info("Unused interaction: " + interaction.getTypeId() + " from " + interaction.getSenderId());
             }
+        }
+    }
+
+    /**
+     * Forwards a sensor spawn request (which was issued by the CarlaSensorApp) to Carla.
+     *
+     * @param vehicleCarlaSensorActivation Interaction
+     */
+    private synchronized void receiveInteraction(VehicleCarlaSensorActivation vehicleCarlaSensorActivation) {
+        String vehicleId = vehicleCarlaSensorActivation.getVehicleId();
+        String sensorId = client.spawnSensor(vehicleId, vehicleCarlaSensorActivation.getSensor());
+        if (sensorId != null) {
+            log.info("{} sensor spawned for vehicle {}. Sensor ID: {}", vehicleCarlaSensorActivation.getSensor(),
+                    vehicleId, sensorId);
+            registeredCarlaSensors.put(sensorId, vehicleId);
+        } else {
+            log.warn("{} Sensor spawn request for vehicle {} failed: no sensor ID was returned. Sensor will not work.",
+                    vehicleCarlaSensorActivation.getSensor(), vehicleId);
         }
     }
 
@@ -285,7 +314,6 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private synchronized void receiveInteraction(VehicleUpdates vehicleUpdates) throws InternalFederateException {
         if (vehicleUpdates == null || vehicleUpdates.getSenderId().equals(getId())) {
-            log.debug("VehicleUpdates: null");
             return;
         }
 
@@ -524,10 +552,61 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
                 }
             }
 
+            // receive Carla sensor data
+            if (carlaStepResult.getSensorDataList().size() > 0) {
+                forwardCarlaSensorData(carlaStepResult.getSensorDataList());
+            }
+
             rti.requestAdvanceTime(this.nextTimeStep, 0, (byte) 2);
 
         } catch (InternalFederateException | IllegalValueException e) {
             log.error("Error during advanceTime(" + time + ")", e);
+            throw new InternalFederateException(e);
+        }
+    }
+
+    private void forwardCarlaSensorData(List<SensorData> sensorDataList) throws InternalFederateException {
+        List<VehicleData> vehicleUpdateList = new ArrayList<>();
+        for (SensorData sensorData : sensorDataList) {
+            // build list of LiDAR points
+            List<LidarFrame.LidarPoint> lidarPoints = new ArrayList<>();
+            for (Location location : sensorData.getLidarPointsList()) {
+                Vector3d vector3d = new Vector3d(location.getX(), location.getY(), location.getZ());
+                LidarFrame.LidarPoint lidarPoint = new LidarFrame.LidarPoint(vector3d, true);
+                lidarPoints.add(lidarPoint);
+            }
+
+            // build LiDAR frame
+            Matrix3d rotationMatrix = new Matrix3d().loadIdentity();
+            Vector3d reference = new Vector3d(sensorData.getLocation().getX(), sensorData.getLocation().getY(),
+                    sensorData.getLocation().getZ());
+            double timestamp = this.nextTimeStep;
+            double minRange = sensorData.getMinRange();
+            double maxRange = sensorData.getMaxRange();
+            LidarFrame lidarFrame = new LidarFrame(rotationMatrix, reference, lidarPoints, timestamp, minRange, maxRange);
+
+            // add LiDAR frame to updated vehicle list
+            String vehicleId = registeredCarlaSensors.get(sensorData.getId());
+            // vehicle ID is known
+            if (vehicleId != null) {
+                //System.out.println("Sending data for vehicle " + vehicleId);
+                VehicleData vehicleData = new VehicleData.Builder(this.nextTimeStep, vehicleId)
+                        .additional(lidarFrame)
+                        .create();
+                vehicleUpdateList.add(vehicleData);
+            }
+        }
+        // send LiDAR frames via VehicleUpdates to rti
+        try {
+            VehicleUpdates vehicleUpdates = new VehicleUpdates(this.nextTimeStep,
+                    Lists.newArrayList(),
+                    vehicleUpdateList,
+                    Lists.newArrayList());
+            rti.triggerInteraction(vehicleUpdates);
+        } catch (InternalFederateException e) {
+            log.error("Could not send Carla sensor data to rti (InternalFederateException)");
+        } catch (IllegalValueException e) {
+            log.error("Could not send Carla sensor data to rti (IllegalValueException)");
             throw new InternalFederateException(e);
         }
     }

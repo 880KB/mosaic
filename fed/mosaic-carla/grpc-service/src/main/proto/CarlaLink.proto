@@ -133,7 +133,7 @@ message Attribute {
 
 message SensorData {
   string id = 1;
-  Timestamp timestamp = 2;
+  string timestamp = 2;
   double minRange = 3;
   double maxRange = 4;
   Location location = 5;

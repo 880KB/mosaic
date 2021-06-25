@@ -198,7 +198,8 @@
                 "VehicleTypesInitialization",
                 "ScenarioTrafficLightRegistration",
                 "TrafficLightUpdates",
-                "VehicleRoutesInitialization"
+                "VehicleRoutesInitialization",
+                "VehicleCarlaSensorActivation"
             ],
             "javaClasspathEntries": []
         },
