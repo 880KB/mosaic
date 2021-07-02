@@ -295,7 +295,12 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private synchronized void receiveInteraction(VehicleCarlaSensorActivation vehicleCarlaSensorActivation) {
         String vehicleId = vehicleCarlaSensorActivation.getVehicleId();
-        String sensorId = client.spawnSensor(vehicleId, vehicleCarlaSensorActivation.getSensor());
+        HashMap<String, String> parameters = new HashMap<>();
+        parameters.put("range", String.valueOf(carlaConfig.lidarRange));
+        parameters.put("dropoff_general_rate", String.valueOf(carlaConfig.lidarDropoffGeneralRate));
+        parameters.put("dropoff_intensity_limit", String.valueOf(carlaConfig.lidarDropoffIntensityLimit));
+        parameters.put("dropoff_zero_intensity", String.valueOf(carlaConfig.lidarDropoffZeroIntensity));
+        String sensorId = client.spawnSensor(vehicleId, vehicleCarlaSensorActivation.getSensor(), parameters);
         if (sensorId != null) {
             log.info("{} sensor spawned for vehicle {}. Sensor ID: {}", vehicleCarlaSensorActivation.getSensor(),
                     vehicleId, sensorId);
@@ -572,7 +577,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             // build list of LiDAR points
             List<LidarFrame.LidarPoint> lidarPoints = new ArrayList<>();
             for (Location location : sensorData.getLidarPointsList()) {
-                Vector3d vector3d = new Vector3d(location.getX(), location.getY(), location.getZ());
+                Vector3d vector3d = new Vector3d(location.getX() + 0, location.getY() * -1 + 0, location.getZ() - 500);
                 LidarFrame.LidarPoint lidarPoint = new LidarFrame.LidarPoint(vector3d, true);
                 lidarPoints.add(lidarPoint);
             }

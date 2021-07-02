@@ -23,6 +23,10 @@ import org.eclipse.mosaic.lib.objects.vehicle.VehicleData;
 import org.eclipse.mosaic.lib.objects.vehicle.VehicleSignals;
 import org.eclipse.mosaic.lib.objects.vehicle.VehicleType;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * grpc-client that connects to the grpc-carla-server
  */
@@ -196,21 +200,25 @@ public class CarlaGrpcClient {
         blockingStub.updateTrafficLight(trafficLight);
     }
 
-    public String spawnSensor(String vehicleId, VehicleCarlaSensorActivation.SensorTypes sensorType) {
+    public String spawnSensor(String vehicleId, VehicleCarlaSensorActivation.SensorTypes sensorType,
+                              HashMap<String, String> parameters) {
+        // write parameters of sensor as list
+        List<Attribute> attributes = new ArrayList<>();
+        for (String key : parameters.keySet()) {
+            Attribute attribute = Attribute.newBuilder()
+                    .setName(key)
+                    .setValue(parameters.get(key))
+                    .build();
+            attributes.add(attribute);
+        }
+        // create sensor
         Sensor sensor = Sensor.newBuilder()
                 .setAttached(vehicleId)
                 .setTypeId(sensorType.toString())
+                .addAllAttributes(attributes)
                 .build();
         Sensor response = blockingStub.addSensor(sensor);
         // return Carla ID of spawned sensor
-//        String carlaSensorId = response.getId();
-//        if (response.getAttributesList().size() > 0) {
-//            for (Attribute attribute : response.getAttributesList()) {
-//                if (attribute.getName().equals("sensor_id")) {
-//                    carlaSensorId = attribute.getValue();
-//                }
-//            }
-//        }
          return response.getId();
     }
 }

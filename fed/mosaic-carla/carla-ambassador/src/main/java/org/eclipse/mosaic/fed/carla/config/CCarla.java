@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 public class CCarla implements Serializable {
 
-    private static final long serialVersionUID = 6086738641932706254L;
+    private static final long serialVersionUID = -7517846771157374259L;
 
     /**
      * The Interval after which positions are published.
@@ -47,6 +47,27 @@ public class CCarla implements Serializable {
      * Path to the Carla co-simulation folder.
      */
     public String pathToCarlaCoSimulation = "";
+
+    /**
+     * Maximum distance to measure/raycast in meters.
+     * For LiDAR parameters see https://carla.readthedocs.io/en/0.9.11/ref_sensors/#lidar-sensor
+     */
+    public double lidarRange = 10.0;
+
+    /**
+     * General proportion of points that are randomly dropped.
+     */
+    public double lidarDropoffGeneralRate = 0.45;
+
+    /**
+     * For the intensity based drop-off, the threshold intensity value above which no points are dropped.
+     */
+    public double lidarDropoffIntensityLimit = 0.8;
+
+    /**
+     * For the intensity based drop-off, the probability of each point with zero intensity being dropped.
+     */
+    public double lidarDropoffZeroIntensity = 0.4;
 
     public boolean carlaIsTlsManager() {
         return tlsManager.equals("carla");

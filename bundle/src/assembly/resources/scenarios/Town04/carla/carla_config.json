@@ -2,5 +2,9 @@
     "updateInterval": 100,
     "tlsManager": "carla",
     "tlsStrictConversion": true,
-    "pathToCarlaCoSimulation": "D:\\DCAITI\\Carla\\Co-Simulation\\Mosaic"
+    "pathToCarlaCoSimulation": "D:\\DCAITI\\Carla\\Co-Simulation\\Mosaic",
+    "lidarRange": 80.0,
+    "lidarDropoffGeneralRate": 0.44,
+    "lidarDropoffIntensityLimit": 0.79,
+    "lidarDropoffZeroIntensity": 0.41
 }
