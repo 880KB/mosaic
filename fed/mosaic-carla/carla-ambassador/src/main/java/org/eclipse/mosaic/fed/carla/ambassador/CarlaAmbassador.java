@@ -554,7 +554,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
             // receive Carla sensor data
             if (carlaStepResult.getSensorDataList().size() > 0) {
-                System.out.println("Received sensor data for " + carlaStepResult.getSensorDataList().size() + " sensors");
+                // System.out.println("Received sensor data for " + carlaStepResult.getSensorDataList().size() + " sensors");
                 forwardCarlaSensorData(carlaStepResult.getSensorDataList());
             }
 

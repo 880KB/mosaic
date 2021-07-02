@@ -24,7 +24,8 @@
           "length": 5.3691930770874,
           "width": 2.0527365207672,
           "height": 1.41509950160980,
-          "applications": [ "org.eclipse.mosaic.app.carla.CarlaSensorApp"]
+          "applications": [ "org.eclipse.mosaic.app.carla.CarlaSensorApp",
+            "com.dcaiti.mosaic.app.example.lidar.LidarVisualizationApp" ]
         }
       ],
       "deterministic": true,
@@ -41,8 +42,7 @@
       "departSpeedMode": "MAXIMUM",
       "types": [
         {
-          "name": "vehicle.bmw.isetta",
-          "applications": [ "org.eclipse.mosaic.app.carla.CarlaSensorApp"]
+          "name": "vehicle.bmw.isetta"
         }
       ],
       "deterministic": true,

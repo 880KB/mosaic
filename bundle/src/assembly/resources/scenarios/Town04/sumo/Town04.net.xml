@@ -38,7 +38,7 @@
 
 <net version="1.9" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-563984.16,-5933566.87" convBoundary="0.00,0.00,899.28,800.65" origBoundary="-499.52,-420.26,409.23,380.40" projParameter="!"/>
+    <location netOffset="503.02,423.76" convBoundary="0.00,0.00,899.28,800.65" origBoundary="-499.52,-420.26,409.23,380.40" projParameter="!"/>
 
     <type id="bidirectional" priority="1" speed="1.39" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
     <type id="biking" priority="-1" speed="5.56" allow="bicycle" width="1.50"/>
