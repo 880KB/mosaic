@@ -126,12 +126,7 @@ message Sensor {
   Location location = 3;
   Rotation rotation = 4;
   string attached = 5;
-  repeated Attribute attributes = 6;
-}
-
-message Attribute {
-  string name = 1;
-  string value = 2;
+  map<string, string> attributes = 6;
 }
 
 message SensorData {

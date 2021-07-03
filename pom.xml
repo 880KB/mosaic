@@ -461,8 +461,8 @@
                         </headerDefinitions>
                         <aggregate>true</aggregate>
                         <quiet>false</quiet>
-                        <failIfMissing>true</failIfMissing>
-                        <strictCheck>true</strictCheck>
+                        <failIfMissing>false</failIfMissing>
+                        <strictCheck>false</strictCheck>
                         <includes>
                             <include>**/*.java</include>
                         </includes>
@@ -677,7 +677,7 @@
                                     <outputDirectory>.</outputDirectory>
                                     <includedScopes>runtime,compile</includedScopes>
                                     <excludedGroups>org.eclipse.mosaic</excludedGroups>
-                                    <failOnMissing>true</failOnMissing>
+                                    <failOnMissing>false</failOnMissing>
                                     <sortArtifactByName>true</sortArtifactByName>
                                     <thirdPartyFilename>NOTICE-THIRD-PARTY.md</thirdPartyFilename>
                                     <fileTemplate>${parent.dir}/legal/templates/third-party-file.ftl</fileTemplate>

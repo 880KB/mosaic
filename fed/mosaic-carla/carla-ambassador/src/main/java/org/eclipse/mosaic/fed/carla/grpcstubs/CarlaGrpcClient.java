@@ -23,9 +23,7 @@ import org.eclipse.mosaic.lib.objects.vehicle.VehicleData;
 import org.eclipse.mosaic.lib.objects.vehicle.VehicleSignals;
 import org.eclipse.mosaic.lib.objects.vehicle.VehicleType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * grpc-client that connects to the grpc-carla-server
@@ -202,20 +200,11 @@ public class CarlaGrpcClient {
 
     public String spawnSensor(String vehicleId, VehicleCarlaSensorActivation.SensorTypes sensorType,
                               HashMap<String, String> parameters) {
-        // write parameters of sensor as list
-        List<Attribute> attributes = new ArrayList<>();
-        for (String key : parameters.keySet()) {
-            Attribute attribute = Attribute.newBuilder()
-                    .setName(key)
-                    .setValue(parameters.get(key))
-                    .build();
-            attributes.add(attribute);
-        }
         // create sensor
         Sensor sensor = Sensor.newBuilder()
                 .setAttached(vehicleId)
                 .setTypeId(sensorType.toString())
-                .addAllAttributes(attributes)
+                .putAllAttributes(parameters)
                 .build();
         Sensor response = blockingStub.addSensor(sensor);
         // return Carla ID of spawned sensor
