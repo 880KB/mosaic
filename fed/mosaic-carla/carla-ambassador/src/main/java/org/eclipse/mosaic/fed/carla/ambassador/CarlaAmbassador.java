@@ -577,7 +577,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             // build list of LiDAR points
             List<LidarFrame.LidarPoint> lidarPoints = new ArrayList<>();
             for (Location location : sensorData.getLidarPointsList()) {
-                Vector3d vector3d = new Vector3d(location.getX() + 0, location.getY() * -1 + 0, location.getZ() - 500);
+                Vector3d vector3d = new Vector3d(location.getX(), location.getZ(), location.getY() * -1);
                 LidarFrame.LidarPoint lidarPoint = new LidarFrame.LidarPoint(vector3d, true);
                 lidarPoints.add(lidarPoint);
             }
