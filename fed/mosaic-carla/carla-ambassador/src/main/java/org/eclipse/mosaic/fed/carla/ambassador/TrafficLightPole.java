@@ -39,15 +39,6 @@ public class TrafficLightPole {
     private final String TL_CARLA_OFF = "0";
 
     /**
-     * Defined vehicle signals bits by Sumo (https://sumo.dlr.de/docs/TraCI/Vehicle_Signalling.html)
-     */
-    private final int VEH_SIGNAL_BLINKER_RIGHT = 0;
-    private final int VEH_SIGNAL_BLINKER_LEFT = 1;
-    private final int VEH_SIGNAL_BLINKER_EMERGENCY = 2;
-    private final int VEH_SIGNAL_BRAKELIGHT = 3;
-    private final int VEH_SIGNAL_BACKDRIVE = 7;
-
-    /**
      * Possible Mosaic traffic light states.
      */
     TrafficLightState TL_MOSAIC_RED = new TrafficLightState(true, false, false);

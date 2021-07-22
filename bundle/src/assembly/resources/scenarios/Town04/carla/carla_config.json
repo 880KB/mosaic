@@ -3,8 +3,15 @@
     "tlsManager": "carla",
     "tlsStrictConversion": true,
     "pathToCarlaCoSimulation": "D:\\DCAITI\\Carla\\Co-Simulation\\Mosaic",
+    "lidarChannels": 3,
     "lidarRange": 180.0,
+    "lidarPointsPerSecond": 56000,
+    "lidarRotationFrequency": 10.0,
+    "lidarUpperFov": 10.0,
+    "lidarLowerFov": -30.0,
+    "lidarAtmosphereAttenuationRate": 0.004,
     "lidarDropoffGeneralRate": 0.44,
     "lidarDropoffIntensityLimit": 0.79,
-    "lidarDropoffZeroIntensity": 0.41
+    "lidarDropoffZeroIntensity": 0.41,
+    "lidarNoiseStdDev": 0.0
 }

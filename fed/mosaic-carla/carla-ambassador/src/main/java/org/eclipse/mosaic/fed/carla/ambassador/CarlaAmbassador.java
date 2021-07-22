@@ -296,10 +296,17 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
     private synchronized void receiveInteraction(VehicleCarlaSensorActivation vehicleCarlaSensorActivation) {
         String vehicleId = vehicleCarlaSensorActivation.getVehicleId();
         HashMap<String, String> parameters = new HashMap<>();
+        parameters.put("channels", String.valueOf(carlaConfig.lidarChannels));
         parameters.put("range", String.valueOf(carlaConfig.lidarRange));
+        parameters.put("points_per_second", String.valueOf(carlaConfig.lidarPointsPerSecond));
+        parameters.put("rotation_frequency", String.valueOf(carlaConfig.lidarRotationFrequency));
+        parameters.put("upper_fov", String.valueOf(carlaConfig.lidarUpperFov));
+        parameters.put("lower_fov", String.valueOf(carlaConfig.lidarLowerFov));
+        parameters.put("atmosphere_attenuation_rate", String.valueOf(carlaConfig.lidarAtmosphereAttenuationRate));
         parameters.put("dropoff_general_rate", String.valueOf(carlaConfig.lidarDropoffGeneralRate));
         parameters.put("dropoff_intensity_limit", String.valueOf(carlaConfig.lidarDropoffIntensityLimit));
         parameters.put("dropoff_zero_intensity", String.valueOf(carlaConfig.lidarDropoffZeroIntensity));
+        parameters.put("noise_stddev", String.valueOf(carlaConfig.lidarNoiseStdDev));
         String sensorId = client.spawnSensor(vehicleId, vehicleCarlaSensorActivation.getSensor(), parameters);
         if (sensorId != null) {
             log.info("{} sensor spawned for vehicle {}. Sensor ID: {}", vehicleCarlaSensorActivation.getSensor(),
