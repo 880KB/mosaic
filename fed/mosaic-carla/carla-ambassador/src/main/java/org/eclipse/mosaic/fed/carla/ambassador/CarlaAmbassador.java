@@ -566,7 +566,6 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
             // receive Carla sensor data
             if (carlaStepResult.getSensorDataList().size() > 0) {
-                // System.out.println("Received sensor data for " + carlaStepResult.getSensorDataList().size() + " sensors");
                 forwardCarlaSensorData(carlaStepResult.getSensorDataList());
             }
 
@@ -602,7 +601,6 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
             String vehicleId = registeredCarlaSensors.get(sensorData.getId());
             // vehicle ID is known
             if (vehicleId != null) {
-                //System.out.println("Sending data for vehicle " + vehicleId);
                 VehicleData vehicleData = new VehicleData.Builder(this.nextTimeStep, vehicleId)
                         .additional(lidarFrame)
                         .create();

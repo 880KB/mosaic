@@ -15,7 +15,12 @@
 
 package org.eclipse.mosaic.interactions.vehicle;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.eclipse.mosaic.rti.api.Interaction;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 public final class VehicleCarlaSensorActivation extends Interaction {
 
@@ -44,14 +49,20 @@ public final class VehicleCarlaSensorActivation extends Interaction {
     private final SensorTypes sensor;
 
     /**
+     * True if sensor shall be spawned, False if it shall be destroyed.
+     */
+    boolean activate;
+
+    /**
      * Creates a new {@link VehicleCarlaSensorActivation} interaction.
      *
      * @param time Timestamp of this interaction, unit: [ms]
      */
-    public VehicleCarlaSensorActivation(long time, String vehicleId, SensorTypes sensor) {
+    public VehicleCarlaSensorActivation(long time, String vehicleId, SensorTypes sensor, boolean activate) {
         super(time);
         this.vehicleId = vehicleId;
         this.sensor = sensor;
+        this.activate = activate;
     }
 
     public String getVehicleId() {
@@ -62,5 +73,43 @@ public final class VehicleCarlaSensorActivation extends Interaction {
         return sensor;
     }
 
-    // TODO: hashCode() equals() toString()
+    public boolean isActivate() {
+        return activate;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(3, 23)
+                .append(vehicleId)
+                .append(sensor)
+                .toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+
+        VehicleCarlaSensorActivation other = (VehicleCarlaSensorActivation) obj;
+        return new EqualsBuilder()
+                .append(this.vehicleId, other.vehicleId)
+                .append(this.sensor, other.sensor)
+                .isEquals();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+                .appendSuper(super.toString())
+                .append("vehicleId", vehicleId)
+                .append("sensor", sensor)
+                .toString();
+    }
 }

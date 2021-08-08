@@ -23,17 +23,22 @@ import org.eclipse.mosaic.rti.TIME;
 
 public class CarlaSensorApp extends AbstractApplication<VehicleOperatingSystem> {
 
+    int DELAY = 200;
+
     @Override
     public void onStartup() {
         VehicleCarlaSensorActivation vehicleCarlaSensorActivation =
-                new VehicleCarlaSensorActivation(getOs().getSimulationTime() + 200 * TIME.MILLI_SECOND,
-                        getOs().getId(), VehicleCarlaSensorActivation.SensorTypes.LiDAR);
+                new VehicleCarlaSensorActivation(getOs().getSimulationTime() + DELAY * TIME.MILLI_SECOND,
+                        getOs().getId(), VehicleCarlaSensorActivation.SensorTypes.LiDAR, true);
         getOs().sendInteractionToRti(vehicleCarlaSensorActivation);
     }
 
     @Override
     public void onShutdown() {
-        // TODO: kill sensor?
+        VehicleCarlaSensorActivation vehicleCarlaSensorActivation =
+                new VehicleCarlaSensorActivation(getOs().getSimulationTime() + DELAY * TIME.MILLI_SECOND,
+                        getOs().getId(), VehicleCarlaSensorActivation.SensorTypes.LiDAR, false);
+        getOs().sendInteractionToRti(vehicleCarlaSensorActivation);
     }
 
     @Override
