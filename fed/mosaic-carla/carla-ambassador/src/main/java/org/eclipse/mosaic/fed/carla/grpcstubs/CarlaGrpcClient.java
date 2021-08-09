@@ -210,4 +210,12 @@ public class CarlaGrpcClient {
         // return Carla ID of spawned sensor
          return response.getId();
     }
+
+    public void removeSensor(String sensorId, VehicleCarlaSensorActivation.SensorTypes sensorType) {
+        Sensor sensor = Sensor.newBuilder()
+                .setId(sensorId)
+                .setTypeId(sensorType.toString())
+                .build();
+        blockingStub.removeSensor(sensor);
+    }
 }
