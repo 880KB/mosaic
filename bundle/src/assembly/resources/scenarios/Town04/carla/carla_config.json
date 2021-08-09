@@ -5,7 +5,7 @@
     "carlaAutostart": true,
     "pathToCarla": "D:\\DCAITI\\Carla",
     "carlaExe": "CarlaUE4.exe",
-    "secondsToWaitForCarla": 15,
+    "secondsToWaitForCarla": 20,
     "carlaMap": "Town04",
     "lidarChannels": 32,
     "lidarRange": 180.0,
