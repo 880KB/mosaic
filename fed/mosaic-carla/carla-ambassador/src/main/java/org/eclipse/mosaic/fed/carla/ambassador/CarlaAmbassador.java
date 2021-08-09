@@ -40,18 +40,15 @@ import org.eclipse.mosaic.lib.objects.trafficlight.TrafficLightState;
 import org.eclipse.mosaic.lib.objects.vehicle.*;
 import org.eclipse.mosaic.lib.util.objects.ObjectInstantiation;
 import org.eclipse.mosaic.rti.TIME;
-import org.eclipse.mosaic.rti.api.AbstractFederateAmbassador;
-import org.eclipse.mosaic.rti.api.IllegalValueException;
-import org.eclipse.mosaic.rti.api.Interaction;
-import org.eclipse.mosaic.rti.api.InternalFederateException;
+import org.eclipse.mosaic.rti.api.*;
+import org.eclipse.mosaic.rti.api.federatestarter.ExecutableFederateExecutor;
 import org.eclipse.mosaic.rti.api.parameters.AmbassadorParameter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -134,6 +131,16 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private String carlaSpawnEdge = null;
 
+    /**
+     * Command used to start CarlaUE4.
+     */
+    FederateExecutor carlaFederateExecutor = null;
+
+    /**
+     * Command to start the Carla Co-Simulation script.
+     */
+    FederateExecutor carlaCoSimulationExecutor = null;
+
     public CarlaAmbassador(AmbassadorParameter ambassadorParameter) {
         super(ambassadorParameter);
 
@@ -162,6 +169,10 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
         nextTimeStep = startTime;
 
+        if (carlaConfig.carlaAutostart) {
+            startCarlaCoSimulation();
+        }
+
         connectToGrpc();
 
         try {
@@ -169,6 +180,50 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
         } catch (IllegalValueException e) {
             log.error("Error during advanceTime request", e);
             throw new InternalFederateException(e);
+        }
+    }
+
+    /**
+     * A busy wait.
+     * @param seconds seconds to wait
+     */
+    private void busyWait(int seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            log.error("Waiting was interrupted");
+        }
+    }
+
+    /**
+     * Starts all necessary applications for the Carla Co-Simulation.
+     */
+    private void startCarlaCoSimulation() {
+        // start CarlaUE4
+        try {
+            log.info("Starting CarlaUE4");
+            carlaFederateExecutor = new ExecutableFederateExecutor(descriptor,
+                    carlaConfig.pathToCarla + "/" + carlaConfig.carlaExe, new ArrayList<>());
+            File carlaWorkingDir = new File(carlaConfig.pathToCarla);
+            carlaFederateExecutor.startLocalFederate(carlaWorkingDir);
+            busyWait(carlaConfig.secondsToWaitForCarla);
+        } catch (FederateExecutor.FederateStarterException e) {
+            log.error("Could not start CarlaUE4: " + e);
+        }
+        // start co-simulation
+        try {
+            log.info("Starting Carla Co-Simulation script");
+            double stepLength = Double.valueOf(carlaConfig.updateInterval) / 1000;
+            carlaCoSimulationExecutor = new ExecutableFederateExecutor(descriptor, "python",
+                    carlaConfig.pathToCarla + "/Co-Simulation/Mosaic/run_synchronization.py",
+                    carlaConfig.pathToCarla + "/Co-Simulation/Mosaic/example/Town04.sumocfg",
+                    "--tls-manager", carlaConfig.tlsManager,
+                    "--step-length", String.valueOf(stepLength),
+                    "--map", carlaConfig.carlaMap);
+            File carlaCoSimulationWorkingDir = new File(carlaConfig.pathToCarla + "/Co-Simulation/Mosaic/");
+            carlaCoSimulationExecutor.startLocalFederate(carlaCoSimulationWorkingDir);
+        } catch (FederateExecutor.FederateStarterException e) {
+            log.error("Could not start Carla Co-Simulation script: " + e);
         }
     }
 
@@ -187,7 +242,7 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
      */
     private void loadCarlaTrafficLightGroups() {
         JSONParser parser = new JSONParser();
-        String filename = carlaConfig.pathToCarlaCoSimulation + "\\data\\traffic_light_mapping.json";
+        String filename = carlaConfig.pathToCarla + "\\Co-Simulation\\Mosaic\\data\\traffic_light_mapping.json";
         try {
             JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filename));
             for (Object trafficLightGroupId : jsonObject.keySet()) {
@@ -908,9 +963,25 @@ public class CarlaAmbassador extends AbstractFederateAmbassador {
 
     @Override
     public void finishSimulation() throws InternalFederateException {
-        log.info("Closing Carla Resources");
+        if (carlaCoSimulationExecutor != null) {
+            try {
+                log.info("Stopping Carla Co-Simulation script");
+                carlaCoSimulationExecutor.stopLocalFederate();
+            } catch (FederateExecutor.FederateStarterException e) {
+                log.warn("Could not properly stop federate: " + e);
+            }
+        }
+        if (carlaFederateExecutor != null) {
+            try {
+                log.info("Stopping CarlaUE4");
+                carlaFederateExecutor.stopLocalFederate();
+            } catch (FederateExecutor.FederateStarterException e) {
+                log.warn("Could not properly stop federate: " + e);
+            }
+        }
         if (channel != null) {
             try {
+                log.info("Stopping gRPC server");
                 ((ManagedChannel) channel).shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 log.warn("Could not properly stop grpc client");

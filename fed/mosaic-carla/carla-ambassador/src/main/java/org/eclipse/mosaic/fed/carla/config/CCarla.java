@@ -44,9 +44,29 @@ public class CCarla implements Serializable {
     public boolean tlsStrictConversion = true;
 
     /**
-     * Path to the Carla co-simulation folder.
+     * Path to Carla.
      */
-    public String pathToCarlaCoSimulation = "";
+    public String pathToCarla = "";
+
+    /**
+     * Filename of the Carla executable.
+     */
+    public String carlaExe = "";
+
+    /**
+     * Seconds to wait for Carla to start.
+     */
+    public int secondsToWaitForCarla = 10;
+
+    /**
+     * Name of the map to be loaded by Carla's config.py.
+     */
+    public String carlaMap = "";
+
+    /**
+     * Toggles Carla autostart functionality.
+     */
+    public boolean carlaAutostart = false;
 
     /**
      * Number of lasers.
